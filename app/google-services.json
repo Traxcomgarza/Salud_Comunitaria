@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "618461971870",
+    "project_id": "salud-comunitaria-7fd9c",
+    "storage_bucket": "salud-comunitaria-7fd9c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618461971870:android:8d195514cea61746e6428f",
+        "android_client_info": {
+          "package_name": "com.example.salud_comunitaria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1y32rfnqjos5NVlCbC-2ghT0oCqldn2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -21,3 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Salud_Comunitaria"
 include(":app")
+include(":data-core")
+include(":feature-auth")
+include(":feature-medical-history")
+include(":feature-show-diseases")

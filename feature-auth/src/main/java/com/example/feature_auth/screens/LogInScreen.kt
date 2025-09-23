@@ -1,5 +1,6 @@
 package com.example.feature_auth.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -30,45 +35,54 @@ fun LoginScreen(
     modifier: Modifier = Modifier
 
     ){
-    val users by userViewModel.users.collectAsState()
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
-    Scaffold(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        topBar = {
-            TopAppBar(title = { Text("Login") })
-        }
-    ) { innerPadding ->
-        Column(
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Card(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+                .padding(16.dp)
+                .fillMaxWidth()
         ) {
-            Button(
-                onClick = { userViewModel.syncFromFirebase() },
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                    .padding(24.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Sincronizar desde Firebase")
-            }
-            LazyColumn(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(users) { user ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp)
-                    ) {
-                        Text(
-                            text = user.username,
-                            modifier = Modifier.padding(16.dp)
-                        )
-                    }
+                Text(text = "Iniciar Sesión", style = MaterialTheme.typography.h5)
+                Spacer(modifier = Modifier.height(16.dp))
+                OutlinedTextField(
+                    value = username,
+                    onValueChange = { username = it },
+                    label = { Text("Usuario") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Contraseña") },
+                    visualTransformation = PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = { onLoginClick(username, password) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Ingresar")
                 }
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoginScreenPreview() {
+    LoginScreen()
 }

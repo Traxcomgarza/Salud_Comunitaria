@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -25,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,7 +42,43 @@ fun LoginScreen(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 
-    ){
+   ){
+//
+//    val users by userViewModel.users.collectAsState()
+//
+//    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+//        Button(
+//            onClick = { userViewModel.insertFakeUsers() },
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            Text("Insertar Fake Users")
+//        }
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+//
+//        LazyColumn(
+//            modifier = Modifier.fillMaxSize()
+//        ) {
+//            items(users) { user ->
+//                Card(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(vertical = 4.dp),
+//                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+//                ) {
+//                    Column(modifier = Modifier.padding(12.dp)) {
+//                        Text("Username: ${user.username}")
+//                        Text("UserType: ${user.userType}")
+//                    }
+//                    Button(onClick = { userViewModel.deleteUser(user) }) {
+//                        Text("Eliminar")
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 

@@ -2,25 +2,29 @@ package com.example.feature_auth.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data_core.dao.UserDao
 import com.example.data_core.model.User
 import com.example.data_core.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.first
+
 
 class UserViewModel(private val repository: UserRepository): ViewModel(){
     //List of Users it can be used for adminUser
     private val _users = MutableStateFlow<List<User>>(emptyList())
     val users: StateFlow<List<User>> = _users.asStateFlow()
 
-//    init {
-//        viewModelScope.launch {
-//            repository.getAllUsers().collectLatest { userList ->
-//                _users.value = userList
-//            }
-//        }
-//    }
+    init {
+        viewModelScope.launch {
+            repository.getAllUsers().collectLatest { userList ->
+                _users.value = userList
+            }
+        }
+    }
 
     fun addUser(user: User) {
         viewModelScope.launch { repository.insertUser(user) }

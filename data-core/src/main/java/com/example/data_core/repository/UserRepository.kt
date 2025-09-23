@@ -58,8 +58,8 @@ class UserRepository(
 //TODO Eliminar
     suspend fun insertFakeUsers(){
         val users = listOf(
-            User(username = "user1", password = "password1", userType = "user"),
-            User(username = "user2", password = "password2", userType = "user")
+            User(username = "user1", password = "password1", userType = "admin")
+
 
         )
         users.forEach {

@@ -4,11 +4,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.data_core.dao.DiseaseDao
 import com.example.data_core.dao.UserDao
-import com.example.data_core.model.Disease_Info
+import com.example.data_core.model.DiseaseInfo
 import com.example.data_core.model.User
 
 @Database(
-    entities = [User::class, Disease_Info::class],
+    entities = [User::class, DiseaseInfo::class],
     version = 1,
     exportSchema = false
 )

@@ -1,4 +1,4 @@
-package com.example.data_core.viewmodel
+package com.example.feature_auth.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,7 +7,6 @@ import com.example.data_core.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class UserViewModel(private val repository: UserRepository): ViewModel(){
@@ -38,4 +37,11 @@ class UserViewModel(private val repository: UserRepository): ViewModel(){
     fun getUserById(id: Long): User? {
         return users.value.find { it.id == id }
     }
+    fun syncFromFirebase(){
+        viewModelScope.launch { repository.syncFromFirebase() }
+    }
+    fun insertFakeUsers(){
+        viewModelScope.launch { repository.insertFakeUsers() }
+    }
+
 }

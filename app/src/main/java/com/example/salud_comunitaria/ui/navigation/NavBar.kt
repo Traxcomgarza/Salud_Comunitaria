@@ -5,9 +5,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.data_core.viewmodel.DiseaseViewModel
-import com.example.data_core.viewmodel.UserViewModel
-import com.example.feature_auth.screens.LogInScreen
+import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
+import com.example.feature_auth.viewmodel.UserViewModel
+import com.example.feature_auth.screens.LoginScreen
 import com.example.feature_auth.screens.SignInScreen
 import com.example.feature_show_diseases.screens.DiseasesScreen
 
@@ -21,7 +21,7 @@ fun NavBar(
         navController = navController,
         startDestination = "login"
     ){
-        composable("login"){LogInScreen()}
+        composable("login"){LoginScreen(userViewModel, navController)}
         composable("register"){SignInScreen()}
         composable("diseases"){DiseasesScreen()}
 

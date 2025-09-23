@@ -14,5 +14,5 @@ import com.example.data_core.model.User
 )
 abstract class AppDatabase: RoomDatabase(){
     abstract fun userDao(): UserDao
-    abstract fun disease(): DiseaseDao
+    abstract fun diseaseDao(): DiseaseDao
 }

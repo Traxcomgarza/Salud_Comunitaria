@@ -4,6 +4,8 @@ plugins {
 
     //Firebase
     id("com.google.gms.google-services") version "4.4.3" apply false
+    //ROOM
+    id("com.google.devtools.ksp")
 
 }
 
@@ -56,6 +58,10 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
 
+    //Room
+    implementation("androidx.room:room-runtime:2.7.2")
+    implementation("androidx.room:room-ktx:2.7.2")
+    ksp("androidx.room:room-compiler:2.7.2")
 
 }
 

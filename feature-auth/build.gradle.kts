@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.ui.tooling.preview)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -67,4 +68,5 @@ dependencies {
 
     //data-core
     implementation(project(":data-core"))
+    debugImplementation(libs.androidx.ui.tooling)
 }

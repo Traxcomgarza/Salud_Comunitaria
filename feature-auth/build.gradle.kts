@@ -69,4 +69,7 @@ dependencies {
     //data-core
     implementation(project(":data-core"))
     debugImplementation(libs.androidx.ui.tooling)
+
+    //firebase auth
+    implementation("com.google.firebase:firebase-auth")
 }

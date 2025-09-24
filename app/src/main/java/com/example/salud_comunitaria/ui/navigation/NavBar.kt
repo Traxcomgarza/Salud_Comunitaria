@@ -22,7 +22,7 @@ fun NavBar(
         startDestination = "login"
     ){
         composable("login"){LoginScreen(userViewModel, navController)}
-        composable("register"){SignInScreen()}
+        composable("signup"){SignInScreen(userViewModel, navController)}
         composable("diseases"){DiseasesScreen()}
 
 

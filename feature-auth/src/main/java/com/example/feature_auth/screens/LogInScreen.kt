@@ -78,7 +78,6 @@ fun LoginScreen(
 //        }
 //    }
 
-
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -114,9 +113,15 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Button( onClick = { /*  LOGIN */ }
+                Button( onClick = { /* TODO  LOGIN */ }
                 ) {
                     Text("Ingresar")
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = { navController.navigate("signup")}
+                ) {
+                    Text("Registrarse")
                 }
             }
         }

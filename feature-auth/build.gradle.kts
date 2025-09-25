@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.benchmark.traceprocessor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -69,6 +70,10 @@ dependencies {
     //data-core
     implementation(project(":data-core"))
     debugImplementation(libs.androidx.ui.tooling)
+
+    //ui-resources
+    implementation(project(":ui-resources"))
+
 
     //firebase auth
     implementation("com.google.firebase:firebase-auth")

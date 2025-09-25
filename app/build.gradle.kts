@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.ui.text)
+    implementation(libs.androidx.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -88,6 +89,9 @@ dependencies {
     implementation(project(":feature-auth"))
     //medical-history
     implementation(project(":feature-medical-history"))
+    //ui-resource
+    implementation(project(":ui-resources"))
+
 
 }
 apply(plugin= "com.google.gms.google-services")

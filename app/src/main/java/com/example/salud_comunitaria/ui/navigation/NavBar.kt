@@ -10,6 +10,7 @@ import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.screens.LoginScreen
 import com.example.feature_auth.screens.SignInScreen
 import com.example.feature_show_diseases.screens.DiseasesScreen
+import com.example.salud_comunitaria.screen.SplashScreen
 
 @Composable
 fun NavBar(
@@ -19,8 +20,9 @@ fun NavBar(
 ){
     NavHost(
         navController = navController,
-        startDestination = "login"
+        startDestination = "splash"
     ){
+        composable("splash"){SplashScreen(navController)}
         composable("login"){LoginScreen(userViewModel, navController)}
         composable("signup"){SignInScreen(userViewModel, navController)}
         composable("diseases"){DiseasesScreen()}

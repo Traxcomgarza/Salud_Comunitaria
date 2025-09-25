@@ -1,6 +1,7 @@
 package com.example.feature_auth.screens
 
-import android.R
+import androidx.benchmark.traceprocessor.Row
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,8 +22,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -47,6 +52,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.feature_auth.viewmodel.UserViewModel
 import kotlin.math.sign
+import com.example.ui_resources.R
+import com.example.ui_resources.theme.Inter
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,7 +94,8 @@ fun LoginScreen(
                 ) {
                     Text(
                         text = "Iniciar Sesión",
-                        style = MaterialTheme.typography.titleLarge)
+                        style = MaterialTheme.typography.titleLarge.copy(fontFamily = Inter)
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = username,
@@ -113,16 +121,34 @@ fun LoginScreen(
                         Text("Ingresar")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    Row (verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)){
-                        IconButton(
-                            //TODO CREATE A NEW MODULE TO USE FONTS AND ICONS
-                            painter = painterResource(id = R.drawable.google_logo),
-                        onClick = { navController.navigate("signup") }
+                    Button(onClick = {navController.navigate("signup") },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0965C2)),
+                        shape = RoundedCornerShape(4.dp),
+
                         ) {
-                        Text("Sign In with Google")
-                        }
+                        Text("Registrarse")
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                    OutlinedButton(
+                        onClick = { /* TODO LOGIN */ },
+                        shape = RoundedCornerShape(50),
+                        border = BorderStroke(1.dp, Color.LightGray),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.google_logo),
+                            contentDescription = "Google Logo",
+                            tint = Color.Unspecified
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Sign in with Google")
+                    }
+                }
 
                 }
             }

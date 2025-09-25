@@ -62,4 +62,7 @@ dependencies {
 
     //data-core
     implementation(project(":data-core"))
+
+    //ui-resources
+    implementation(project(":ui-resources"))
 }

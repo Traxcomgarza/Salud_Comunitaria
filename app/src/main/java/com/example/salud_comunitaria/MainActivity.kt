@@ -25,6 +25,9 @@ import com.example.feature_show_diseases.viewmodel.DiseaseViewModelFactory
 import com.example.salud_comunitaria.ui.navigation.NavBar
 import com.example.salud_comunitaria.ui.theme.Salud_ComunitariaTheme
 
+
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

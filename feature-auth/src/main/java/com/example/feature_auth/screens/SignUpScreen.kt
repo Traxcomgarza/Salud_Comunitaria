@@ -35,10 +35,10 @@ fun SignInScreen(
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var typeOfUser by remember { mutableStateOf("") }
 
     Scaffold(
         modifier = Modifier
-            //TODO PADDING
             .fillMaxSize()
     ) { innerPadding ->
         Box(

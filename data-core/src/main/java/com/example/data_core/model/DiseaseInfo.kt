@@ -22,15 +22,21 @@ data class DiseaseInfo(
         "diseaseSpread" to diseaseSpread
     )
     //build config firebase
-    companion object{
-        fun fromMap(map: Map<String, Any?>): DiseaseInfo = DiseaseInfo(
-            id = map["id"] as Long,
-            diseaseName = map["diseaseName"] as String,
-            diseaseInfo = map["diseaseInfo"] as String,
-            symptoms = map["symptoms"] as String,
-            diseaseSpread = map["diseaseSpread"] as String
-        )
+    companion object {
+        fun fromMap(map: Map<String, Any?>): DiseaseInfo {
+            val idValue: Long = when (val idFromDb = map["id"]) {
+                is Number -> idFromDb.toLong()
+                is String -> idFromDb.toLongOrNull() ?: 0L
+                else -> 0L
+            }
+
+            return DiseaseInfo(
+                id = idValue,
+                diseaseName = map["diseaseName"] as? String ?: "Sin nombre",
+                diseaseInfo = map["diseaseInfo"] as? String ?: "Sin información",
+                symptoms = map["symptoms"] as? String ?: "Sin síntomas",
+                diseaseSpread = map["diseaseSpread"] as? String ?: "Sin datos de propagación"
+            )
+        }
     }
-
-
 }

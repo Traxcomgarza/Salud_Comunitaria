@@ -4,8 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
 
-    //firebase
-    id("com.google.gms.google-services") version "4.4.3" apply false
 
 }
 
@@ -62,6 +60,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,6 +76,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+
+    implementation("io.insert-koin:koin-androidx-compose:3.5.0")
+    implementation("io.insert-koin:koin-android:3.5.0")
 
     //data-core
     implementation(project(":data-core"))

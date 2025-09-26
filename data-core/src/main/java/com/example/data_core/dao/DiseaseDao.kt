@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DiseaseDao {
+
+    //Se agrego el query para la busqueda de enfermedades
+    @Query(""" SELECT * FROM disease WHERE :query = '' OR diseaseName LIKE '%' || :query || '%' ORDER BY diseaseName ASC """)
+    fun searchDiseases(query: String): Flow<List<DiseaseInfo>>
+
     @Query("SELECT * FROM disease")
     fun getAllDiseases(): Flow<List<DiseaseInfo>>
 
@@ -25,4 +30,8 @@ interface DiseaseDao {
 
     @Delete
     suspend fun deleteDisease(disease: DiseaseInfo)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(diseases: List<DiseaseInfo>)
+
 }

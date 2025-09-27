@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.example.data_core.database.AppDatabase
@@ -70,11 +73,23 @@ class MainActivity : ComponentActivity() {
             Salud_ComunitariaTheme {
                 val navController = rememberNavController()
 
+
+                val backStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = backStackEntry?.destination?.route
+
+                val firebaseUser by userViewModel.currentUser.collectAsState()
+
+                val hideRoutes = setOf("splash", "login", "signup")
+
+                val showNavBar = firebaseUser != null && (currentRoute !in hideRoutes)
+
                 Scaffold(
                     bottomBar = {
-                        NavBarComponent(navController = navController)
+                        if (showNavBar) {
+                            NavBarComponent(navController = navController)
+                        }
                     }
-                )  { innerPadding ->
+                ) { innerPadding ->
                     NavBar(
                         diseaseViewModel = diseaseViewModel,
                         userViewModel = userViewModel,

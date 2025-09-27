@@ -13,7 +13,7 @@ import com.example.feature_admin.screens.AdminSuggestionScreen
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.screens.LoginScreen
-import com.example.feature_auth.screens.SignInScreen
+import com.example.feature_auth.screens.SignUpScreen
 import com.example.feature_show_diseases.screens.DiseaseDetailScreen
 import com.example.feature_profile.screen.ProfileScreen
 import com.example.feature_show_diseases.screens.DiseasesScreen
@@ -36,7 +36,7 @@ fun NavBar(
     ){
         composable("splash"){SplashScreen(navController)}
         composable("login"){LoginScreen(userViewModel, navController)}
-        composable("signup"){SignInScreen(userViewModel, navController)}
+        composable("signup"){SignUpScreen(userViewModel, navController)}
         composable("profile"){ProfileScreen(userViewModel, navController)}
 
         composable("diseases") {DiseasesScreen(viewModel = diseaseViewModel,onKnowMoreClicked = { diseaseId ->

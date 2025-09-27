@@ -15,6 +15,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Apps
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
@@ -72,14 +74,14 @@ fun NavBarComponent(
             IconButton(onClick = { navController.navigate("diseases") }) {
                 Icon(
                     imageVector = Icons.Filled.Home,
-                    contentDescription = "Home",
+                    contentDescription = "diseases",
                     tint = Color(0xFF8C8CB1)
                 )
             }
-            IconButton(onClick = { }) {
+            IconButton(onClick = {navController.navigate("suggestion") }) {
                 Icon(
-                    imageVector = Icons.Filled.FavoriteBorder,
-                    contentDescription = "Favorite",
+                    imageVector = Icons.Filled.AutoAwesome,
+                    contentDescription = "suggestion",
                     tint = Color(0xFF3D4CFF)
                 )
             }
@@ -98,17 +100,17 @@ fun NavBarComponent(
                     modifier = Modifier.size(44.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.Add,
+                        imageVector = Icons.Filled.Apps,
                         contentDescription = if (expanded) "Cerrar opciones" else "Agregar",
                         tint = Color.White
                     )
                 }
             }
 
-            IconButton(onClick = {  }) {
+            IconButton(onClick = { navController.navigate("admin")  }) {
                 Icon(
-                    imageVector = Icons.Filled.Email,
-                    contentDescription = "Messages",
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = "adminDiseases",
                     tint = Color(0xFF8C8CB1)
                 )
             }

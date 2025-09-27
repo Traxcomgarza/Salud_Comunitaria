@@ -68,6 +68,7 @@ fun AddDiseaseScreen(
                 }
             )
         },
+
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
         Column(

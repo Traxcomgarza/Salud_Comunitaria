@@ -5,21 +5,72 @@ import androidx.lifecycle.viewModelScope
 import com.example.data_core.dao.UserDao
 import com.example.data_core.model.User
 import com.example.data_core.repository.UserRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.tasks.await
 
-
-class UserViewModel(private val repository: UserRepository): ViewModel(){
-    //List of Users it can be used for adminUser
+sealed class AuthState {
+    object Idle : AuthState()
+    object Loading : AuthState()
+    data class Success(val user: FirebaseUser) : AuthState()
+    data class Error(val message: String) : AuthState()
+}
+class UserViewModel(
+    private val repository: UserRepository
+): ViewModel(){
     private val _users = MutableStateFlow<List<User>>(emptyList())
     val users: StateFlow<List<User>> = _users.asStateFlow()
-    //Current User
-    private val _currentUser = MutableStateFlow<User?>(null)
-    val currentUser: StateFlow<User?> = _currentUser
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
+    val authState: StateFlow<AuthState> = _authState.asStateFlow()
+
+    private val _currentUser = MutableStateFlow<FirebaseUser?>(auth.currentUser)
+    val currentUser: StateFlow<FirebaseUser?> = _currentUser.asStateFlow()
+
+
+    fun signIn(email: String, password: String) {
+        viewModelScope.launch {
+            _authState.value = AuthState.Loading
+            try {
+                val result = auth.signInWithEmailAndPassword(email, password).await()
+                _currentUser.value = result.user!!
+                _authState.value = AuthState.Success(result.user!!)
+            } catch (e: Exception) {
+                _authState.value = AuthState.Error(e.message ?: "Error desconocido")
+            }
+        }
+    }
+
+    fun signUp(email: String, password: String) {
+        viewModelScope.launch {
+            _authState.value = AuthState.Loading
+            try {
+                val result = auth.createUserWithEmailAndPassword(email, password).await()
+                _currentUser.value = result.user!!
+                _authState.value = AuthState.Success(result.user!!)
+            } catch (e: Exception) {
+                _authState.value = AuthState.Error(e.message ?: "Error al registrar")
+            }
+        }
+    }
+
+    fun resetAuthState() {
+        _authState.value = AuthState.Idle
+    }
+
+    fun signOut() {
+        auth.signOut()
+        _currentUser.value = null
+        _authState.value = AuthState.Idle
+    }
 
     init {
         viewModelScope.launch {
@@ -54,11 +105,7 @@ class UserViewModel(private val repository: UserRepository): ViewModel(){
         viewModelScope.launch { repository.syncFromFirebase() }
     }
 
-    fun authenticate(username: String, password: String): User? {
-        val user = users.value.find { it.username == username && it.password == password }
-        _currentUser.value = user
-        return user
-    }
+
 
 
 

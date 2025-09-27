@@ -21,10 +21,14 @@ import com.example.data_core.firebase.FirebaseDiseaseService
 import com.example.data_core.firebase.FirebaseSuggestionService
 import com.example.data_core.firebase.FirebaseUserService
 import com.example.data_core.repository.DiseaseRepository
+import com.example.data_core.repository.SettingsRepository
 import com.example.data_core.repository.SuggestionRepository
+import com.example.data_core.repository.ThemeMode
 import com.example.data_core.repository.UserRepository
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.viewmodel.UserViewModelFactory
+import com.example.feature_profile.viewmodel.SettingsViewModel
+import com.example.feature_profile.viewmodel.SettingsViewModelFactory
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModelFactory
 import com.example.feature_suggestion.viewmodel.SuggestionViewModel
@@ -52,16 +56,19 @@ class MainActivity : ComponentActivity() {
         val diseaseRepository = DiseaseRepository(database.diseaseDao(),firebaseDiseaseService)
         val userRepository = UserRepository(database.userDao(),firebaseUserService)
         val suggestionRepository = SuggestionRepository(database.suggestionDao(), firebaseSuggestionService)
+        val settingsRepository = SettingsRepository(applicationContext)
 
         //viewModelFactory
         val diseaseViewModelFactory = DiseaseViewModelFactory(diseaseRepository)
         val userViewModelFactory = UserViewModelFactory(userRepository)
         val suggestionViewModelFactory = SuggestionViewModelFactory(suggestionRepository)
+        val settingsViewModelFactory = SettingsViewModelFactory(settingsRepository)
 
         //ViewModel
         val diseaseViewModel = ViewModelProvider(this, diseaseViewModelFactory)[DiseaseViewModel::class.java]
         val userViewModel = ViewModelProvider(this, userViewModelFactory)[UserViewModel::class.java]
         val suggestionViewModel = ViewModelProvider(this, suggestionViewModelFactory)[SuggestionViewModel::class.java]
+        val settingsViewModel = ViewModelProvider(this, settingsViewModelFactory)[SettingsViewModel::class.java]
 
         //Sync
         diseaseViewModel.syncFromFirebase()
@@ -70,7 +77,8 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            Salud_ComunitariaTheme {
+            val themeMode by settingsRepository.themeModeFlow.collectAsState(initial = ThemeMode.LIGHT)
+            Salud_ComunitariaTheme(themeMode = themeMode, dynamicColor = false) {
                 val navController = rememberNavController()
 
 
@@ -94,6 +102,7 @@ class MainActivity : ComponentActivity() {
                         diseaseViewModel = diseaseViewModel,
                         userViewModel = userViewModel,
                         suggestionViewModel = suggestionViewModel,
+                        settingsViewModel = settingsViewModel,
                         navController = navController,
                         modifier = Modifier.padding(innerPadding)
                     )

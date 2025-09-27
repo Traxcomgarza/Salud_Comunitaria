@@ -16,6 +16,8 @@ import com.example.feature_auth.screens.LoginScreen
 import com.example.feature_auth.screens.SignUpScreen
 import com.example.feature_show_diseases.screens.DiseaseDetailScreen
 import com.example.feature_profile.screen.ProfileScreen
+import com.example.feature_profile.screen.SettingsScreen
+import com.example.feature_profile.viewmodel.SettingsViewModel
 import com.example.feature_show_diseases.screens.DiseasesScreen
 import com.example.feature_suggestion.screens.SuggestionScreen
 import com.example.feature_suggestion.viewmodel.SuggestionViewModel
@@ -27,6 +29,7 @@ fun NavBar(
     diseaseViewModel: DiseaseViewModel,
     userViewModel: UserViewModel,
     suggestionViewModel: SuggestionViewModel,
+    settingsViewModel: SettingsViewModel,
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
@@ -60,5 +63,6 @@ fun NavBar(
         composable("admin"){ AddDiseaseScreen(viewModel = diseaseViewModel, onBackClicked = { navController.popBackStack() })}
         composable("suggestion"){SuggestionScreen( viewModel = suggestionViewModel, navController = navController)}
         composable("adminSuggestion"){ AdminSuggestionScreen(viewModel = suggestionViewModel, onBackClicked = { navController.popBackStack() }) }
+        composable("settings") {SettingsScreen(viewModel = settingsViewModel)}
     }
 }

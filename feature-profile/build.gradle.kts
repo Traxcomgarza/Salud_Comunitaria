@@ -1,16 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-
-    //Firebase
-    id("com.google.gms.google-services") version "4.4.3" apply false
-    //ROOM
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.kotlin.compose)
 
 }
 
 android {
-    namespace = "com.example.data_core"
+    namespace = "com.example.feature_profile"
     compileSdk = 36
 
     defaultConfig {
@@ -37,9 +33,12 @@ android {
         jvmTarget = "17"
     }
 
-
-
-
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
+    }
 }
 
 dependencies {
@@ -47,23 +46,23 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.room.common.jvm)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.room.ktx)
+    implementation(libs.androidx.runtime)
+    implementation(libs.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-    //Room
-    implementation("androidx.room:room-runtime:2.7.2")
-    implementation("androidx.room:room-ktx:2.7.2")
-    ksp("androidx.room:room-compiler:2.7.2")
+    //data-core
+    implementation(project(":data-core"))
+    debugImplementation(libs.androidx.ui.tooling)
 
+    //ui-resources
+    implementation(project(":ui-resources"))
+
+    //feature-auth
+    implementation(project(":feature-auth"))
 }
 
-apply(plugin= "com.google.gms.google-services")
+

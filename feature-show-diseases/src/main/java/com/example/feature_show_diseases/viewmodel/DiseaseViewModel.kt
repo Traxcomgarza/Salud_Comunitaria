@@ -43,4 +43,7 @@ class DiseaseViewModel(private val repository: DiseaseRepository) : ViewModel() 
     fun getDiseaseById(id: Long): DiseaseInfo? {
         return diseases.value.find { it.id == id }
     }
+    fun syncFromFirebase(){
+        viewModelScope.launch { repository.syncFromFirebase() }
+    }
 }

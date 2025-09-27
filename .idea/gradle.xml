@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/data-core" />
             <option value="$PROJECT_DIR$/feature-auth" />
             <option value="$PROJECT_DIR$/feature-medical-history" />
+            <option value="$PROJECT_DIR$/feature-profile" />
             <option value="$PROJECT_DIR$/feature-show-diseases" />
             <option value="$PROJECT_DIR$/ui-resources" />
           </set>

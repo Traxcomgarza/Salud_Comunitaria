@@ -24,6 +24,8 @@ benchmarkTraceprocessor = "1.4.1"
 material3Version = "1.4.0"
 uiTextVersion = "1.9.2"
 runtimeVersion = "1.9.2"
+navigationComposeVersion = "2.9.5"
+roomKtxVersion = "2.8.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -57,6 +59,10 @@ material3 = { group = "androidx.compose.material3", name = "material3", version.
 androidx-compose-ui-text = { group = "androidx.compose.ui", name = "ui-text", version.ref = "uiTextVersion" }
 androidx-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtimeVersion" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended"}
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationComposeVersion" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtxVersion" }
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

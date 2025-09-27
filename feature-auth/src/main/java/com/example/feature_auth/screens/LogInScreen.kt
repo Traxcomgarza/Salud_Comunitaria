@@ -1,5 +1,6 @@
 package com.example.feature_auth.screens
 
+import android.widget.Toast
 import androidx.benchmark.traceprocessor.Row
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -31,6 +32,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,10 +52,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.feature_auth.component.isEmail
 import com.example.feature_auth.viewmodel.UserViewModel
 import kotlin.math.sign
 import com.example.ui_resources.R
 import com.example.ui_resources.theme.Inter
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,11 +71,19 @@ fun LoginScreen(
    ){
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var typeOfUser by remember { mutableStateOf("") }
+    val snackbarHostState = remember { androidx.compose.material3.SnackbarHostState() }
+    var snackbarMessage by remember { mutableStateOf<String?>(null) }
 
+    if (snackbarMessage != null) {
+        LaunchedEffect(snackbarMessage) {
+            snackbarHostState.showSnackbar(snackbarMessage!!)
+            snackbarMessage = null
+        }
+    }
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        snackbarHost = { androidx.compose.material3.SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
         Box(
             contentAlignment = Alignment.Center,
@@ -112,7 +125,26 @@ fun LoginScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { /* TODO  LOGIN */ },
+                    Button(onClick = {
+                        if (username.isEmpty() || password.isEmpty()) {
+                            snackbarMessage = "Debe llenar todos los campos"
+                        }
+                        else if (!isEmail(username)) {
+                            snackbarMessage = "Ingresa un correo válido"
+                        }
+                        else{
+                            //set user
+                            val user = userViewModel.authenticate(username, password)
+                            //validate user
+                            if (user != null) {
+                                snackbarMessage = "Bienvenido ${user.username}"
+                                navController.navigate("splash")
+                            } else {
+                                snackbarMessage = "Usuario o contraseña incorrectos"
+                            }
+                        }
+
+                    },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0965C2)),
                         shape = RoundedCornerShape(4.dp),
@@ -135,7 +167,9 @@ fun LoginScreen(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                     OutlinedButton(
-                        onClick = { /* TODO LOGIN */ },
+                        onClick = {
+
+                        },
                         shape = RoundedCornerShape(50),
                         border = BorderStroke(1.dp, Color.LightGray),
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
@@ -155,9 +189,3 @@ fun LoginScreen(
         }
     }
 }
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun preview(){
-    //LoginScreen(userViewModel = UserViewModel, navController = NavHostController, modifier= Modifier )
-}
-

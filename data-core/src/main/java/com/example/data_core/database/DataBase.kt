@@ -9,10 +9,12 @@ import com.example.data_core.model.User
 
 @Database(
     entities = [User::class, DiseaseInfo::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase(){
     abstract fun userDao(): UserDao
     abstract fun diseaseDao(): DiseaseDao
+
+
 }

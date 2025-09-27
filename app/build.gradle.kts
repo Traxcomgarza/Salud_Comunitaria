@@ -80,6 +80,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+    //auth
+    implementation("com.google.firebase:firebase-auth")
 
     //data-core
     implementation(project(":data-core"))

@@ -93,6 +93,8 @@ dependencies {
     implementation(project(":feature-medical-history"))
     //ui-resource
     implementation(project(":ui-resources"))
+    //profile
+    implementation(project(":feature-profile"))
 
 
 }

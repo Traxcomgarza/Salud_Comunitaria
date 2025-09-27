@@ -89,10 +89,12 @@ fun LoginScreen(
                 }
                 userViewModel.resetAuthState()
             }
+
             is AuthState.Error -> {
                 snackbarHostState.showSnackbar("Error: ${state.message}")
                 userViewModel.resetAuthState()
             }
+
             else -> Unit
         }
     }
@@ -159,7 +161,8 @@ fun LoginScreen(
                         }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { navController.navigate("signup") },
+                    Button(
+                        onClick = { navController.navigate("signup") },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0965C2)),
                         shape = RoundedCornerShape(4.dp)
@@ -167,25 +170,7 @@ fun LoginScreen(
                         Text("Registrarse")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        OutlinedButton(
-                            onClick = { /* Lógica para login con Google iría aquí */ },
-                            shape = RoundedCornerShape(50),
-                            border = BorderStroke(1.dp, Color.LightGray),
-                            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.google_logo),
-                                contentDescription = "Google Logo",
-                                tint = Color.Unspecified
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text("Sign in with Google")
-                        }
-                    }
+
                 }
             }
         }

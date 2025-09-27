@@ -148,21 +148,33 @@ fun NavBarComponent(
                         Button(
                             onClick = {
                                 expanded = false
-                                navController.navigate("adminSuggestion")
+                                navController.navigate("settings")
                             },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("Agregar Sugerencia")
+                            Text("Configuración")
                         }
+
                         Button(
                             onClick = {
                                 expanded = false
-                                navController.navigate("admin")
+                                navController.navigate("diseases")
                             },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("Agregar Enfermedad")
+                            Text("Ver Enfermedades")
                         }
+
+                        Button(
+                            onClick = {
+                                expanded = false
+                                navController.navigate("profile")
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Perfil")
+                        }
+
                         Button(
                             onClick = {
                                 expanded = false
@@ -172,6 +184,27 @@ fun NavBarComponent(
                         ) {
                             Text("Ver Sugerencias")
                         }
+
+                        Button(
+                            onClick = {
+                                expanded = false
+                                navController.navigate("adminSuggestion")
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Añadir Sugerencias")
+                        }
+
+                        Button(
+                            onClick = {
+                                expanded = false
+                                navController.navigate("admin")
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Agregar Enfermedad")
+                        }
+
                     }
                 }
             }

@@ -52,7 +52,6 @@ dependencies {
     testImplementation(libs.junit)
     implementation(libs.androidx.compose.material3)
     androidTestImplementation(libs.androidx.junit)
-    implementation(libs.androidx.compose.foundation.layout)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

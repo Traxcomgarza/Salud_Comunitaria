@@ -65,6 +65,10 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.ui.text)
     implementation(libs.androidx.runtime)
+    implementation(libs.navigation.runtime.ktx)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.foundation.layout)
+    implementation(libs.androidx.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -74,6 +78,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.material.iconsExtended)
+
 
 
     //firebase

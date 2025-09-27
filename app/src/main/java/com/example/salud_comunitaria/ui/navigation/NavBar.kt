@@ -14,6 +14,7 @@ import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.screens.LoginScreen
 import com.example.feature_auth.screens.SignInScreen
 import com.example.feature_show_diseases.screens.DiseaseDetailScreen
+import com.example.feature_profile.screen.ProfileScreen
 import com.example.feature_show_diseases.screens.DiseasesScreen
 import com.example.feature_suggestion.screens.SuggestionScreen
 import com.example.feature_suggestion.viewmodel.SuggestionViewModel
@@ -29,11 +30,13 @@ fun NavBar(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "suggestion"
-    ) {
-        composable("splash") { SplashScreen(navController) }
-        composable("login") { LoginScreen(userViewModel, navController) }
-        composable("signup") { SignInScreen(userViewModel, navController) }
+        startDestination = "splash"
+    ){
+        composable("splash"){SplashScreen(navController)}
+        composable("login"){LoginScreen(userViewModel, navController)}
+        composable("signup"){SignInScreen(userViewModel, navController)}
+        composable("diseases"){DiseasesScreen()}
+        composable("profile"){ProfileScreen(userViewModel, navController)}
 
         composable("diseases") {DiseasesScreen(viewModel = diseaseViewModel,onKnowMoreClicked = { diseaseId ->
                     navController.navigate("diseaseDetail/$diseaseId")

@@ -136,7 +136,7 @@ fun LoginScreen(
                             //validate user
                             if (user != null) {
                                 snackbarMessage = "Bienvenido ${user.username}"
-                                navController.navigate("splash")
+                                navController.navigate("profile")
                             } else {
                                 snackbarMessage = "Usuario o contraseña incorrectos"
                             }

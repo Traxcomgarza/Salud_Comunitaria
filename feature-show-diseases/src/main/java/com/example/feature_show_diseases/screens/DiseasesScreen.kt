@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,7 +22,7 @@ fun DiseasesScreen(
     // Observa la lista de enfermedades desde el ViewModel
     val diseases by viewModel.diseases.collectAsState()
 
-    androidx.compose.foundation.lazy.LazyColumn(modifier = Modifier.padding(16.dp)) {
+    LazyColumn(modifier = Modifier.padding(16.dp)) {
         items(diseases) { disease ->
             androidx.compose.material3.Card(
                 modifier = Modifier

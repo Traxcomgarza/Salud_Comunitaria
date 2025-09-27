@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.feature_admin.screens.AddDiseaseScreen
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.screens.LoginScreen
@@ -24,7 +25,7 @@ fun NavBar(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "diseases"
+        startDestination = "admin"
     ) {
         composable("splash") { SplashScreen(navController) }
         composable("login") { LoginScreen(userViewModel, navController) }
@@ -49,5 +50,7 @@ fun NavBar(
                 onBackClicked = { navController.popBackStack() }
             )
         }
+
+        composable("admin"){ AddDiseaseScreen(viewModel = diseaseViewModel, onBackClicked = { navController.popBackStack() })}
     }
 }

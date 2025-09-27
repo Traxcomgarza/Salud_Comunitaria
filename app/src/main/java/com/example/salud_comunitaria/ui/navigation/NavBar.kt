@@ -37,7 +37,6 @@ fun NavBar(
         composable("splash"){SplashScreen(navController)}
         composable("login"){LoginScreen(userViewModel, navController)}
         composable("signup"){SignInScreen(userViewModel, navController)}
-        composable("diseases"){DiseasesScreen()}
         composable("profile"){ProfileScreen(userViewModel, navController)}
 
         composable("diseases") {DiseasesScreen(viewModel = diseaseViewModel,onKnowMoreClicked = { diseaseId ->

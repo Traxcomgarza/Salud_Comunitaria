@@ -11,6 +11,8 @@ import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.screens.LoginScreen
 import com.example.feature_auth.screens.SignInScreen
+import com.example.feature_medical_history.screens.MedicalHistoryScreen
+import com.example.feature_medical_history.viewmodel.MedicalHistoryViewModel
 import com.example.feature_show_diseases.screens.DiseaseDetailScreen
 import com.example.feature_show_diseases.screens.DiseasesScreen
 import com.example.salud_comunitaria.screen.SplashScreen
@@ -20,6 +22,7 @@ import com.example.salud_comunitaria.screen.SplashScreen
 fun NavBar(
     diseaseViewModel: DiseaseViewModel,
     userViewModel: UserViewModel,
+    medicalHistoryViewModel: MedicalHistoryViewModel,
     navController: NavHostController = rememberNavController()
 ) {
     NavHost(
@@ -46,6 +49,18 @@ fun NavBar(
             DiseaseDetailScreen(
                 diseaseId = diseaseId,
                 viewModel = diseaseViewModel,
+                onBackClicked = { navController.popBackStack() },
+                onNavigateToHistory = {
+                    navController.navigate("medical_history") {
+                        popUpTo("diseases")
+                    }
+                }
+            )
+        }
+
+        composable("medical_history") {
+            MedicalHistoryScreen(
+                viewModel = medicalHistoryViewModel,
                 onBackClicked = { navController.popBackStack() }
             )
         }

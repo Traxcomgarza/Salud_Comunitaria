@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
 
     //Firebase
-    id("com.google.gms.google-services") version "4.4.3" apply false
+
     //ROOM
     id("com.google.devtools.ksp")
 
@@ -65,5 +65,3 @@ dependencies {
     ksp("androidx.room:room-compiler:2.7.2")
 
 }
-
-apply(plugin= "com.google.gms.google-services")

@@ -8,8 +8,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -62,6 +60,12 @@ class DiseaseViewModel(private val repository: DiseaseRepository) : ViewModel() 
     fun getDiseaseById(id: Long): DiseaseInfo? {
         return diseases.value.find { it.id == id }
     }
+
+    // Modificada para ser suspend y devolver Boolean
+    suspend fun addDiseaseToHistory(userId: Long, diseaseId: Long): Boolean {
+        return repository.addDiseaseToUserHistory(userId, diseaseId)
+    }
+
     fun syncFromFirebase(){
         viewModelScope.launch { repository.syncFromFirebase() }
     }

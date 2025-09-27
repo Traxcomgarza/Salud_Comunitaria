@@ -6,15 +6,13 @@ import com.example.data_core.dao.DiseaseDao
 import com.example.data_core.dao.UserDao
 import com.example.data_core.model.DiseaseInfo
 import com.example.data_core.model.User
-
+import com.example.data_core.model.UserDiseaseCrossRef // Import actualizado
 @Database(
-    entities = [User::class, DiseaseInfo::class],
-    version = 3,
+    entities = [User::class, DiseaseInfo::class, UserDiseaseCrossRef::class], // Entidad actualizada
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase(){
     abstract fun userDao(): UserDao
     abstract fun diseaseDao(): DiseaseDao
-
-
 }

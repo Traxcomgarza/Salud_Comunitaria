@@ -16,10 +16,10 @@ interface DiseaseDao {
     suspend fun insertAll(diseases: List<DiseaseInfo>)
 
 
-    @Query("SELECT * FROM disease ORDER BY name ASC")
+    @Query("SELECT * FROM disease_info_table ORDER BY name ASC")
     fun getAllDiseases(): Flow<List<DiseaseInfo>>
 
-    @Query("SELECT * FROM disease WHERE id = :id")
+    @Query("SELECT * FROM disease_info_table WHERE disease_info_id = :id")
     fun getDiseaseById(id: Long): Flow<DiseaseInfo?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

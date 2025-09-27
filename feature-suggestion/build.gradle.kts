@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.feature_admin"
+    namespace = "com.example.feature_suggestion"
     compileSdk = 36
 
     defaultConfig {
@@ -26,11 +26,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -45,30 +45,19 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.runtime)
+    implementation(libs.navigation.runtime.ktx)
     implementation(libs.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.compose.material.iconsExtended)
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
 
     //data-core
     implementation(project(":data-core"))
+    debugImplementation(libs.androidx.ui.tooling)
 
     //ui-resources
     implementation(project(":ui-resources"))
-
-    //feature-show-diseases
-    implementation(project(":feature-show-diseases"))
-
-    //feature suggestion
-    implementation(project(":feature-suggestion"))
-
 }

@@ -8,12 +8,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.feature_admin.screens.AddDiseaseScreen
+import com.example.feature_admin.screens.AdminSuggestionScreen
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.screens.LoginScreen
 import com.example.feature_auth.screens.SignInScreen
 import com.example.feature_show_diseases.screens.DiseaseDetailScreen
 import com.example.feature_show_diseases.screens.DiseasesScreen
+import com.example.feature_suggestion.screens.SuggestionScreen
+import com.example.feature_suggestion.viewmodel.SuggestionViewModel
 import com.example.salud_comunitaria.screen.SplashScreen
 
 
@@ -21,24 +24,23 @@ import com.example.salud_comunitaria.screen.SplashScreen
 fun NavBar(
     diseaseViewModel: DiseaseViewModel,
     userViewModel: UserViewModel,
+    suggestionViewModel: SuggestionViewModel,
     navController: NavHostController = rememberNavController()
 ) {
     NavHost(
         navController = navController,
-        startDestination = "admin"
+        startDestination = "suggestion"
     ) {
         composable("splash") { SplashScreen(navController) }
         composable("login") { LoginScreen(userViewModel, navController) }
         composable("signup") { SignInScreen(userViewModel, navController) }
 
-        //Se creo la ruta para la pantalla diseases
         composable("diseases") {DiseasesScreen(viewModel = diseaseViewModel,onKnowMoreClicked = { diseaseId ->
                     navController.navigate("diseaseDetail/$diseaseId")
                 }
             )
         }
 
-        //Se creo la ruta para la pantalla de detalle
         composable(
             route = "diseaseDetail/{diseaseId}",
             arguments = listOf(navArgument("diseaseId") { type = NavType.LongType })
@@ -52,5 +54,7 @@ fun NavBar(
         }
 
         composable("admin"){ AddDiseaseScreen(viewModel = diseaseViewModel, onBackClicked = { navController.popBackStack() })}
+        composable("suggestion"){SuggestionScreen( viewModel = suggestionViewModel, navController = navController)}
+        composable("adminSuggestion"){ AdminSuggestionScreen(viewModel = suggestionViewModel, onBackClicked = { navController.popBackStack() }) }
     }
 }

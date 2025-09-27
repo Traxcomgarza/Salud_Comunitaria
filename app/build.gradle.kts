@@ -97,6 +97,8 @@ dependencies {
     implementation(project(":feature-profile"))
     //admin
     implementation(project(":feature-admin"))
+    //suggestion
+    implementation(project(":feature-suggestion"))
 
 
 

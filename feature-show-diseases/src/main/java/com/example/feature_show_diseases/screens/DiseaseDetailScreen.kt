@@ -36,8 +36,7 @@ fun DiseaseDetailScreen(
     viewModel: DiseaseViewModel,
     onBackClicked: () -> Unit
 ) {
-    // 1. Observa el flujo de datos del ViewModel.
-    // `diseasesState` se actualizará automáticamente cuando los datos lleguen a Room.
+    //Observa el flujo de datos del ViewModel.
     val diseasesState by viewModel.diseases.collectAsState()
 
     //Busca la enfermedad usando el ID

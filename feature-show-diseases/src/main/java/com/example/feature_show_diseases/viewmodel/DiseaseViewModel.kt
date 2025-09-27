@@ -4,28 +4,47 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_core.model.DiseaseInfo
 import com.example.data_core.repository.DiseaseRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 //ViewModel Diseases it can be used by adminUser
 class DiseaseViewModel(private val repository: DiseaseRepository) : ViewModel() {
     // list of diseases
-    private val _diseases = MutableStateFlow<List<DiseaseInfo>>(emptyList())
-    val diseases: StateFlow<List<DiseaseInfo>> = _diseases.asStateFlow()
+    private val _isSortedAlphabetically = MutableStateFlow(false)
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val diseases: StateFlow<List<DiseaseInfo>> = _isSortedAlphabetically
+            .flatMapLatest { isSorted ->
+                // The DAO query is already sorted alphabetically, so we just use it.
+                repository.getAllDiseases().map { diseaseList ->
+                    if (isSorted) {
+                        diseaseList
+                    } else {
+                        diseaseList.shuffled()
+                    }
+                }
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = emptyList()
+            )
 
     init {
         viewModelScope.launch {
             repository.refreshDiseases()
-            // Escucha continuamente los datos del repositorio.
-            repository.getAllDiseases().collectLatest { diseaseList ->
-                android.util.Log.d("DEBUG_DATA", "ViewModel: Se recibió una lista de ${diseaseList.size} enfermedades desde Room.")
-                // Actualiza el StateFlow con la nueva lista.
-                _diseases.value = diseaseList
-            }
         }
+    }
+    fun toggleAlphabeticalSort() {
+        _isSortedAlphabetically.value = !_isSortedAlphabetically.value
     }
 
     fun addDisease(disease: DiseaseInfo) {

@@ -2,6 +2,7 @@ package com.example.feature_profile.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +15,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -25,31 +28,42 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.ui_resources.R
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     userViewModel: UserViewModel,
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostController,
     modifier: Modifier = Modifier
-){
-    //userId to display information
-    val currentUser by userViewModel.currentUser.collectAsState()
+) {
+    val user by userViewModel.currentUser.collectAsState()
+
+    LaunchedEffect(user) {
+        if (user == null) {
+            navController.navigate("login") {
+                popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Profile") }
+                title = { Text("Perfil") },
+                actions = {
+                    TextButton(onClick = { userViewModel.signOut() }) {
+                        Text("Cerrar sesión")
+                    }
+                }
             )
         },
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .background(Color.White)
                 .padding(innerPadding),
@@ -57,32 +71,28 @@ fun ProfileScreen(
         ) {
             Spacer(Modifier.height(32.dp))
 
-
-            Image(
-                painter = painterResource(id = R.drawable.profile),
-                contentDescription = "Profile picture",
+            // Foto de perfil (placeholder local)
+            Box(
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(96.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFF3D7C1))
-            )
+                    .background(Color(0xFFF3D7C1)),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.profile),
+                    contentDescription = "Profile picture",
+                    modifier = Modifier.size(64.dp)
+                )
+            }
 
             Spacer(Modifier.height(16.dp))
 
-            // Username
+
             Text(
-                //if currentUser is null return string
-                text = currentUser?.username ?: "Usuario",
+                text = user?.email.orEmpty(),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
-            )
-            Spacer(Modifier.height(8.dp))
-            // Type of user
-            Text(
-                //if currentUser is null return string
-                text = currentUser?.userType ?: "Tipo de usuario",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray
             )
         }
     }

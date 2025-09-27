@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,6 +23,7 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -29,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -50,13 +53,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.feature_auth.component.isEmail
+import com.example.feature_auth.viewmodel.AuthState
 import com.example.feature_auth.viewmodel.UserViewModel
 import kotlin.math.sign
 import com.example.ui_resources.R
 import com.example.ui_resources.theme.Inter
+import kotlinx.coroutines.launch
+import androidx.compose.material3.SnackbarHost
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,42 +72,45 @@ fun LoginScreen(
     userViewModel: UserViewModel,
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
-
-   ){
-    var username by remember { mutableStateOf("") }
+) {
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val snackbarHostState = remember { androidx.compose.material3.SnackbarHostState() }
-    var snackbarMessage by remember { mutableStateOf<String?>(null) }
 
-    if (snackbarMessage != null) {
-        LaunchedEffect(snackbarMessage) {
-            snackbarHostState.showSnackbar(snackbarMessage!!)
-            snackbarMessage = null
+    val authState by userViewModel.authState.collectAsState()
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(authState) {
+        when (val state = authState) {
+            is AuthState.Success -> {
+                snackbarHostState.showSnackbar("Bienvenido ${state.user.email}")
+                navController.navigate("profile") {
+                    popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                }
+                userViewModel.resetAuthState()
+            }
+            is AuthState.Error -> {
+                snackbarHostState.showSnackbar("Error: ${state.message}")
+                userViewModel.resetAuthState()
+            }
+            else -> Unit
         }
     }
+
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        snackbarHost = { androidx.compose.material3.SnackbarHost(snackbarHostState) }
+        modifier = Modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+            modifier = Modifier.fillMaxSize().padding(innerPadding)
         ) {
             Card(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = Color.Transparent,
-                )
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = Color.Transparent)
             ) {
                 Column(
-                    modifier = Modifier
-                        .padding(24.dp)
-                        .fillMaxWidth(),
+                    modifier = Modifier.padding(24.dp).fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
@@ -109,9 +119,9 @@ fun LoginScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
-                        value = username,
-                        onValueChange = { username = it },
-                        label = { Text("Usuario") },
+                        value = email,
+                        onValueChange = { email = it },
+                        label = { Text("Email") },
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -123,40 +133,37 @@ fun LoginScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = {
-                        if (username.isEmpty() || password.isEmpty()) {
-                            snackbarMessage = "Debe llenar todos los campos"
-                        }
-                        else if (!isEmail(username)) {
-                            snackbarMessage = "Ingresa un correo válido"
-                        }
-                        else{
-                            //set user
-                            val user = userViewModel.authenticate(username, password)
-                            //validate user
-                            if (user != null) {
-                                snackbarMessage = "Bienvenido ${user.username}"
-                                navController.navigate("profile")
+                    Button(
+                        onClick = {
+                            if (email.isNotEmpty() && password.isNotEmpty()) {
+                                userViewModel.signIn(email, password)
                             } else {
-                                snackbarMessage = "Usuario o contraseña incorrectos"
-                            }
-                        }
 
-                    },
+                                userViewModel.viewModelScope.launch {
+                                    snackbarHostState.showSnackbar("Debe llenar todos los campos")
+                                }
+                            }
+                        },
+                        enabled = authState != AuthState.Loading,
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0965C2)),
-                        shape = RoundedCornerShape(4.dp),
-
+                        shape = RoundedCornerShape(4.dp)
                     ) {
-                        Text("Ingresar")
+                        if (authState == AuthState.Loading) {
+                            CircularProgressIndicator(
+                                color = Color.White,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        } else {
+                            Text("Ingresar")
+                        }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = {navController.navigate("signup") },
+                    Button(onClick = { navController.navigate("signup") },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0965C2)),
-                        shape = RoundedCornerShape(4.dp),
-
-                        ) {
+                        shape = RoundedCornerShape(4.dp)
+                    ) {
                         Text("Registrarse")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
@@ -164,24 +171,21 @@ fun LoginScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                    OutlinedButton(
-                        onClick = {
-
-                        },
-                        shape = RoundedCornerShape(50),
-                        border = BorderStroke(1.dp, Color.LightGray),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.google_logo),
-                            contentDescription = "Google Logo",
-                            tint = Color.Unspecified
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Sign in with Google")
+                        OutlinedButton(
+                            onClick = { /* Lógica para login con Google iría aquí */ },
+                            shape = RoundedCornerShape(50),
+                            border = BorderStroke(1.dp, Color.LightGray),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.google_logo),
+                                contentDescription = "Google Logo",
+                                tint = Color.Unspecified
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Sign in with Google")
+                        }
                     }
-                }
-
                 }
             }
         }

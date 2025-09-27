@@ -132,6 +132,19 @@ fun SignUpScreen(
                             Text("Registrarse")
                         }
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(
+                        onClick = {
+                          navController.navigate("login")
+                        },
+                        enabled = authState != AuthState.Loading,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0965C2)),
+                        shape = RoundedCornerShape(4.dp)
+                    ) {
+                        Text("Iniciar Sesión")
+                    }
+
                 }
             }
         }

@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
             AppDatabase::class.java,
             "AppDatabase"
 
-        ).build()
+        ) .fallbackToDestructiveMigration(true).build()
         //Firebase
         val  firebaseDiseaseService= FirebaseDiseaseService()
         val firebaseUserService = FirebaseUserService()
@@ -49,6 +49,9 @@ class MainActivity : ComponentActivity() {
         val diseaseViewModel = ViewModelProvider(this, diseaseViewModelFactory)[DiseaseViewModel::class.java]
         val userViewModel = ViewModelProvider(this, userViewModelFactory)[UserViewModel::class.java]
 
+        //Sync
+        diseaseViewModel.syncFromFirebase()
+        userViewModel.syncFromFirebase()
 
         setContent {
             Salud_ComunitariaTheme {
@@ -58,21 +61,5 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Salud_ComunitariaTheme {
-        Greeting("Android")
     }
 }

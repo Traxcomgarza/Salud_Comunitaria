@@ -17,6 +17,9 @@ class UserViewModel(private val repository: UserRepository): ViewModel(){
     //List of Users it can be used for adminUser
     private val _users = MutableStateFlow<List<User>>(emptyList())
     val users: StateFlow<List<User>> = _users.asStateFlow()
+    //Current User
+    private val _currentUser = MutableStateFlow<User?>(null)
+    val currentUser: StateFlow<User?> = _currentUser
 
     init {
         viewModelScope.launch {
@@ -26,8 +29,14 @@ class UserViewModel(private val repository: UserRepository): ViewModel(){
         }
     }
 
-    fun addUser(user: User) {
-        viewModelScope.launch { repository.insertUser(user) }
+    fun addUser(user: User): Boolean {
+        val alreadyExist = users.value.any { it.username == user.username }
+        if (!alreadyExist) {
+            viewModelScope.launch { repository.insertUser(user) }
+            return true
+        }else{
+            return false
+        }
     }
 
     fun updateUser(user: User) {
@@ -44,8 +53,13 @@ class UserViewModel(private val repository: UserRepository): ViewModel(){
     fun syncFromFirebase(){
         viewModelScope.launch { repository.syncFromFirebase() }
     }
-    fun insertFakeUsers(){
-        viewModelScope.launch { repository.insertFakeUsers() }
+
+    fun authenticate(username: String, password: String): User? {
+        val user = users.value.find { it.username == username && it.password == password }
+        _currentUser.value = user
+        return user
     }
+
+
 
 }

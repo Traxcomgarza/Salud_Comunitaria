@@ -21,7 +21,7 @@ interface UserDao {
     fun getUserById(id: Long): Flow<List<User?>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(user: User)
+    suspend fun insertUser(user: User): Long
 
 
      //Put

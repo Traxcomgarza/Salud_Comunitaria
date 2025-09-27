@@ -15,10 +15,12 @@ class UserRepository(
 
     fun getUserById(id: Long): Flow<List<User?>> = userDao.getUserById(id)
     suspend fun insertUser(user: User) {
-        userDao.insertUser(user)
+        //insert in room to get the id
+        val generatedId = userDao.insertUser(user)
+        val userId = user.copy(id = generatedId)
         try {
             //call firebaseUserService
-            firebaseService.uploadUser(user)
+            firebaseService.uploadUser(userId)
             // _ ignoress the exception
         } catch (_: Exception){
         }
@@ -55,22 +57,7 @@ class UserRepository(
             }
         }catch (_: Exception){}
     }
-//TODO Eliminar
-    suspend fun insertFakeUsers(){
-        val users = listOf(
-            User(username = "user1", password = "password1", userType = "admin")
 
-
-        )
-        users.forEach {
-            userDao.insertUser(it)
-            try {
-                firebaseService.uploadUser(it)
-            }catch (_: Exception){}
-        }
-
-
-    }
 
 
 }

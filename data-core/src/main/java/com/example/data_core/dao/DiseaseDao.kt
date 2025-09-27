@@ -18,7 +18,7 @@ interface DiseaseDao {
     fun getDiseaseById(id: Long): Flow<DiseaseInfo?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDisease(disease: DiseaseInfo)
+    suspend fun insertDisease(disease: DiseaseInfo): Long
 
     @Update
     suspend fun updateDisease(disease: DiseaseInfo)

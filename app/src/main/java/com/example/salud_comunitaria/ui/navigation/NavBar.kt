@@ -24,17 +24,14 @@ fun NavBar(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "diseaseDetail/1"
+        startDestination = "diseases"
     ) {
         composable("splash") { SplashScreen(navController) }
         composable("login") { LoginScreen(userViewModel, navController) }
         composable("signup") { SignInScreen(userViewModel, navController) }
 
         //Se creo la ruta para la pantalla diseases
-        composable("diseases") {
-            DiseasesScreen(
-                viewModel = diseaseViewModel, // Le pasamos el ViewModel
-                onKnowMoreClicked = { diseaseId ->
+        composable("diseases") {DiseasesScreen(viewModel = diseaseViewModel,onKnowMoreClicked = { diseaseId ->
                     navController.navigate("diseaseDetail/$diseaseId")
                 }
             )

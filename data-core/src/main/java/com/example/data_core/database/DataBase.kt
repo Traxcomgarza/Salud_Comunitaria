@@ -9,7 +9,7 @@ import com.example.data_core.model.User
 
 @Database(
     entities = [User::class, DiseaseInfo::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase(){

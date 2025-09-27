@@ -48,7 +48,9 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.navigation.runtime.ktx)
     testImplementation(libs.junit)
+    implementation(libs.androidx.compose.material3)
     androidTestImplementation(libs.androidx.junit)
     implementation(libs.androidx.compose.foundation.layout)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,12 +58,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.compose.runtime)
 
+    implementation(libs.androidx.compose.material.iconsExtended)
+
+
     //data-core
     implementation(project(":data-core"))
 
     //ui-resources
     implementation(project(":ui-resources"))
 
-    implementation("androidx.compose.material3:material3")
-    implementation(libs.androidx.compose.material.iconsExtended)
+
 }

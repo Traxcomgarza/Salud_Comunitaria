@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "disease",
-    indices = [Index(value = ["diseaseName"], unique = true)]
+    indices = [Index(value = ["name"], unique = true)]
 )
 data class DiseaseInfo(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,

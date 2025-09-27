@@ -75,6 +75,5 @@ dependencies {
     implementation(project(":ui-resources"))
 
 
-    //firebase auth
-    implementation("com.google.firebase:firebase-auth")
+
 }

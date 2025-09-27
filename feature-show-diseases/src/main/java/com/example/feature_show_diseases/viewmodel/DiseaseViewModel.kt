@@ -7,6 +7,7 @@ import com.example.data_core.repository.DiseaseRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 //ViewModel Diseases it can be used by adminUser
@@ -14,6 +15,18 @@ class DiseaseViewModel(private val repository: DiseaseRepository) : ViewModel() 
     // list of diseases
     private val _diseases = MutableStateFlow<List<DiseaseInfo>>(emptyList())
     val diseases: StateFlow<List<DiseaseInfo>> = _diseases.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            repository.refreshDiseases()
+            // Escucha continuamente los datos del repositorio.
+            repository.getAllDiseases().collectLatest { diseaseList ->
+                android.util.Log.d("DEBUG_DATA", "ViewModel: Se recibió una lista de ${diseaseList.size} enfermedades desde Room.")
+                // Actualiza el StateFlow con la nueva lista.
+                _diseases.value = diseaseList
+            }
+        }
+    }
 
     fun addDisease(disease: DiseaseInfo) {
         viewModelScope.launch { repository.insertDisease(disease) }

@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/data-core" />
+            <option value="$PROJECT_DIR$/feature-admin" />
             <option value="$PROJECT_DIR$/feature-auth" />
             <option value="$PROJECT_DIR$/feature-medical-history" />
             <option value="$PROJECT_DIR$/feature-profile" />

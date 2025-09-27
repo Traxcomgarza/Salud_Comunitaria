@@ -11,7 +11,12 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DiseaseDao {
-    @Query("SELECT * FROM disease")
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(diseases: List<DiseaseInfo>)
+
+
+    @Query("SELECT * FROM disease ORDER BY name ASC")
     fun getAllDiseases(): Flow<List<DiseaseInfo>>
 
     @Query("SELECT * FROM disease WHERE id = :id")

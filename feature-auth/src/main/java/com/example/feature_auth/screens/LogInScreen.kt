@@ -57,8 +57,6 @@ import com.example.feature_auth.viewmodel.UserViewModel
 import kotlin.math.sign
 import com.example.ui_resources.R
 import com.example.ui_resources.theme.Inter
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
 
 
 @OptIn(ExperimentalMaterial3Api::class)

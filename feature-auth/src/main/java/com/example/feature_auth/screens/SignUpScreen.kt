@@ -45,8 +45,7 @@ import com.example.feature_auth.component.isEmail
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.ui_resources.R
 import com.example.ui_resources.theme.Inter
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
+
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

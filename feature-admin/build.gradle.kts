@@ -1,15 +1,12 @@
-
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-    //alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "com.example.feature_show_diseases"
+    namespace = "com.example.feature_admin"
     compileSdk = 36
 
     defaultConfig {
@@ -41,23 +38,24 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
     }
-
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.navigation.runtime.ktx)
+    implementation(libs.material)
+    implementation(libs.androidx.runtime)
+    implementation(libs.material3)
     testImplementation(libs.junit)
-    implementation(libs.androidx.compose.material3)
     androidTestImplementation(libs.androidx.junit)
-    implementation(libs.androidx.compose.foundation.layout)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.compose.runtime)
 
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.compose.material.iconsExtended)
 
 
@@ -67,5 +65,7 @@ dependencies {
     //ui-resources
     implementation(project(":ui-resources"))
 
+    //feature-show-diseases
+    implementation(project(":feature-show-diseases"))
 
 }

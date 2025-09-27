@@ -21,6 +21,7 @@ class FirebaseDiseaseService(
 
     suspend fun getAllDiseases(): List<DiseaseInfo>{
         val snapshot = collection.get().await()
+        android.util.Log.d("DEBUG_DATA", "FirebaseService: Se encontraron ${snapshot.documents.size} documentos en Firebase.")
         return snapshot.documents.mapNotNull {
             it.data?.let { data -> DiseaseInfo.fromMap(data) }
         }

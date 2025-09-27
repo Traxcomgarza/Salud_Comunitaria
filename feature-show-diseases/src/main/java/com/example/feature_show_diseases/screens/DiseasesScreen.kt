@@ -36,7 +36,6 @@ fun DiseasesScreen(
 ) {
     val diseases by viewModel.diseases.collectAsState()
     val outlineColor = Color(0xFF9D9D9D)
-    // 1. Define el nuevo color para el texto del botón
     val buttonTextColor = Color(0xFF38558D)
 
     Column(
@@ -68,9 +67,7 @@ fun DiseasesScreen(
                     onClick = {
                         viewModel.toggleAlphabeticalSort()
                     },
-                    // El borde sigue usando el color original
                     border = BorderStroke(1.dp, outlineColor),
-                    // 2. Usa el nuevo color solo para el contenido (texto)
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = buttonTextColor
                     )

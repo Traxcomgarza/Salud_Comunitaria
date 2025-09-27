@@ -1,6 +1,7 @@
 package com.example.salud_comunitaria.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -25,7 +26,8 @@ fun NavBar(
     diseaseViewModel: DiseaseViewModel,
     userViewModel: UserViewModel,
     suggestionViewModel: SuggestionViewModel,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = navController,

@@ -4,11 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.example.data_core.database.AppDatabase
 import com.example.data_core.firebase.FirebaseDiseaseService
@@ -24,6 +27,7 @@ import com.example.feature_show_diseases.viewmodel.DiseaseViewModelFactory
 import com.example.feature_suggestion.viewmodel.SuggestionViewModel
 import com.example.feature_suggestion.viewmodel.SuggestionViewModelFactory
 import com.example.salud_comunitaria.ui.navigation.NavBar
+import com.example.salud_comunitaria.ui.navigation.NavBarComponent
 import com.example.salud_comunitaria.ui.theme.Salud_ComunitariaTheme
 
 class MainActivity : ComponentActivity() {
@@ -64,11 +68,22 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             Salud_ComunitariaTheme {
-                NavBar(
-                    diseaseViewModel = diseaseViewModel,
-                    userViewModel = userViewModel,
-                    suggestionViewModel = suggestionViewModel
-                )
+                val navController = rememberNavController()
+
+                Scaffold(
+                    bottomBar = {
+                        NavBarComponent(navController = navController)
+                    }
+                )  { innerPadding ->
+                    NavBar(
+                        diseaseViewModel = diseaseViewModel,
+                        userViewModel = userViewModel,
+                        suggestionViewModel = suggestionViewModel,
+                        navController = navController,
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+
             }
         }
     }

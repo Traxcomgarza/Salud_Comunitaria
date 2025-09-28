@@ -9,7 +9,7 @@ import com.example.data_core.model.User
 import com.example.data_core.model.UserDiseaseCrossRef // Import actualizado
 @Database(
     entities = [User::class, DiseaseInfo::class, UserDiseaseCrossRef::class], // Entidad actualizada
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase(){

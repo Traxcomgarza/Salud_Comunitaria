@@ -20,7 +20,7 @@ class SuggestionViewModel(private val repository: SuggestionRepository) : ViewMo
         viewModelScope.launch {
             repository.refreshSuggestions()
             repository.getAllSuggestions().collectLatest { suggestionList ->
-                android.util.Log.d("DEBUG_DATA", "ViewModel: Se recibió una lista de ${suggestionList.size} sugerencias desde Room.")
+                android.util.Log.d("DEBUG_DATA", "ViewModel: Se recibio una lista de ${suggestionList.size} sugerencias desde Room.")
                 _suggestions.value = suggestionList
             }
         }

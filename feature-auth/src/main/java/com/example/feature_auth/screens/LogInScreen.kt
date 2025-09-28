@@ -93,7 +93,7 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Iniciar Sesión",
+                        text = "Iniciar Sesion",
                         style = MaterialTheme.typography.titleLarge.copy(fontFamily = Inter)
                     )
                     Spacer(modifier = Modifier.height(16.dp))

@@ -63,7 +63,7 @@ fun AddDiseaseScreen(
                 title = { Text("Añadir Enfermedad") },
                 navigationIcon = {
                     IconButton(onClick = onBackClicked) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atras")
                     }
                 }
             )
@@ -87,19 +87,19 @@ fun AddDiseaseScreen(
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text("Descripción") },
+                label = { Text("Descripcion") },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
                 value = symptoms,
                 onValueChange = { symptoms = it },
-                label = { Text("Síntomas") },
+                label = { Text("Sintomas") },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
                 value = prevention,
                 onValueChange = { prevention = it },
-                label = { Text("Prevención") },
+                label = { Text("Prevencion") },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(

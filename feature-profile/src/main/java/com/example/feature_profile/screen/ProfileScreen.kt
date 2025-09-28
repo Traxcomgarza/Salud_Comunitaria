@@ -56,7 +56,7 @@ fun ProfileScreen(
                 title = { Text("Perfil") },
                 actions = {
                     TextButton(onClick = { userViewModel.signOut() }) {
-                        Text("Cerrar sesión")
+                        Text("Cerrar sesion")
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

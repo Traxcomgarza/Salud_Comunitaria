@@ -78,7 +78,7 @@ class DiseaseRepository(
                 "DiseaseRepository",
                 "Enfermedad $diseaseId agregada al historial del usuario $userId"
             )
-            true // Éxito
+            true // exito
         } catch (e: Exception) {
             Log.e("DiseaseRepository", "Error al agregar enfermedad al historial: ${e.message}", e) // Loguea el mensaje del error
             false // Fallo

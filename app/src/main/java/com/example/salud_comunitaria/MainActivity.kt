@@ -90,17 +90,11 @@ class MainActivity : ComponentActivity() {
             val themeMode by settingsRepository.themeModeFlow.collectAsState(initial = ThemeMode.LIGHT)
             Salud_ComunitariaTheme(themeMode = themeMode, dynamicColor = false) {
                 val navController = rememberNavController()
-
-
                 val backStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = backStackEntry?.destination?.route
-
                 val firebaseUser by userViewModel.currentUser.collectAsState()
-
                 val hideRoutes = setOf("splash", "login", "signup","diseaseDetail/{diseaseId}")
-
                 val showNavBar = firebaseUser != null && (currentRoute !in hideRoutes)
-
                 Scaffold(
                     bottomBar = {
                         if (showNavBar) {

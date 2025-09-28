@@ -60,7 +60,7 @@ fun MedicalHistoryScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Historial médico vacío.",
+                    text = "Historial medico vacio.",
                     style = MaterialTheme.typography.bodyLarge
                 )
             }

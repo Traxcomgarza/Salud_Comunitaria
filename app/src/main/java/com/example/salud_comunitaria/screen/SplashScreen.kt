@@ -31,7 +31,7 @@ fun SplashScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 
-){
+) {
     var state by remember { mutableStateOf(0) }
 
     LaunchedEffect(state) {
@@ -40,17 +40,20 @@ fun SplashScreen(
                 delay(800)
                 state = 1
             }
+
             1 -> {
                 delay(600)
                 state = 2
             }
+
             2 -> {
                 delay(400)
                 state = 3
             }
+
             3 -> {
                 delay(1000)
-                navController.navigate("login"){
+                navController.navigate("login") {
                     popUpTo("splash") { inclusive = true }
                 }
             }
@@ -58,7 +61,7 @@ fun SplashScreen(
     }
 
     val logoScale by animateFloatAsState(
-        targetValue = when(state) {
+        targetValue = when (state) {
             0 -> 1.5f
             else -> 1.0f
         }, label = ""
@@ -66,7 +69,9 @@ fun SplashScreen(
     val showText = state >= 3
 
     Box(
-        modifier = Modifier.fillMaxSize().background(color = Color(0xFF3E5A90)),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color(0xFF3E5A90)),
         contentAlignment = Alignment.Center
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -80,8 +85,6 @@ fun SplashScreen(
             }
         }
     }
-
-
 
 
 }

@@ -106,7 +106,7 @@ fun DiseaseDetailScreen(
                             val message = if (success) {
                                 "Enfermedad guardada en el Historial"
                             } else {
-                                "Error al guardar la enfermedad. Inténtalo de nuevo."
+                                "Error al guardar la enfermedad. Intentalo de nuevo."
                             }
                             snackbarHostState.showSnackbar(
                                 message = message,
@@ -143,15 +143,15 @@ fun DiseaseDetailScreen(
                         .padding(16.dp)
                         .verticalScroll(rememberScrollState())
                 ) {
-                    Text("Descripción", style = MaterialTheme.typography.titleLarge)
+                    Text("Descripcion", style = MaterialTheme.typography.titleLarge)
                     Text(disease.description, style = MaterialTheme.typography.bodyMedium)
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Text("Síntomas", style = MaterialTheme.typography.titleLarge)
+                    Text("Sintomas", style = MaterialTheme.typography.titleLarge)
                     Text(disease.symptoms, style = MaterialTheme.typography.bodyMedium)
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Text("Prevención", style = MaterialTheme.typography.titleLarge)
+                    Text("Prevencion", style = MaterialTheme.typography.titleLarge)
                     Text(disease.prevention, style = MaterialTheme.typography.bodyMedium)
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -166,7 +166,7 @@ fun DiseaseDetailScreen(
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("No se encontró la enfermedad con ID: $diseaseId")
+                    Text("No se encontro la enfermedad con ID: $diseaseId")
                 }
             }
         }

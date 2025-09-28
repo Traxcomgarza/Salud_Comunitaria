@@ -59,7 +59,7 @@ fun AdminSuggestionScreen(
                 title = { Text("Añadir Sugerencia") },
                 navigationIcon = {
                     IconButton(onClick = onBackClicked) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atras")
                     }
                 }
             )
@@ -76,13 +76,13 @@ fun AdminSuggestionScreen(
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text("Título") },
+                label = { Text("Titulo") },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text("Descripción") },
+                label = { Text("Descripcion") },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
@@ -94,7 +94,7 @@ fun AdminSuggestionScreen(
             Button(
                 onClick = {
                     if (title.isBlank() || description.isBlank()) {
-                        snackbarMessage = "Debe llenar el título y la descripción"
+                        snackbarMessage = "Debe llenar el titulo y la descripcion"
                     } else {
                         scope.launch {
                             viewModel.addSuggestion(

@@ -92,7 +92,7 @@ fun DiseasesScreen(
                                 style = MaterialTheme.typography.bodyLarge
                             )
                             Text(
-                                text = "Ver más",
+                                text = "Ver mas",
                                 color = MaterialTheme.colorScheme.primary,
                                 fontWeight = FontWeight.Bold
                             )

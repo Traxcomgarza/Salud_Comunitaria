@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 
 @Entity(
-    tableName = "user_disease_history_junction", // Tabla de unión
+    tableName = "user_disease_history_junction", // Tabla de union
     primaryKeys = ["user_id_fk", "disease_id_fk"],
     indices = [
         Index(value = ["user_id_fk"]),

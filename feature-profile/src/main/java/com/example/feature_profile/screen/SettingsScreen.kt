@@ -29,7 +29,7 @@ fun SettingsScreen(
     val mode by viewModel.themeMode.collectAsState(initial = ThemeMode.LIGHT)
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Configuración") }) },
+        topBar = { TopAppBar(title = { Text("Configuracion") }) },
         modifier = modifier
     ) { innerPadding ->
         Column(
@@ -45,7 +45,7 @@ fun SettingsScreen(
             item {
                 ListItem(
                     headlineContent = { Text("Modo oscuro") },
-                    supportingContent = { Text("Activa el tema oscuro. Si está apagado, se usa el tema claro.") },
+                    supportingContent = { Text("Activa el tema oscuro. Si esta apagado, se usa el tema claro.") },
                     trailingContent = {
                         Switch(
                             checked = mode == ThemeMode.DARK,

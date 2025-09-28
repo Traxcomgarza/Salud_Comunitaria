@@ -156,7 +156,7 @@ fun NavBarComponent(
                             },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("Configuración")
+                            Text("Configuracion")
                         }
 
                         Button(

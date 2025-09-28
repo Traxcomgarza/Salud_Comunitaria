@@ -156,7 +156,7 @@ fun SignUpScreen(
                         ),
                         shape = RoundedCornerShape(4.dp)
                     ) {
-                        Text("Iniciar Sesión")
+                        Text("Iniciar Sesion")
                     }
                 }
             }

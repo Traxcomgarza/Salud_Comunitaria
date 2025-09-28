@@ -13,7 +13,9 @@ import com.example.feature_admin.screens.AdminSuggestionScreen
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.screens.LoginScreen
-import com.example.feature_auth.screens.SignUpScreen
+import com.example.feature_auth.screens.SignInScreen
+import com.example.feature_medical_history.screens.MedicalHistoryScreen
+import com.example.feature_medical_history.viewmodel.MedicalHistoryViewModel
 import com.example.feature_show_diseases.screens.DiseaseDetailScreen
 import com.example.feature_profile.screen.ProfileScreen
 import com.example.feature_profile.screen.SettingsScreen
@@ -32,6 +34,8 @@ fun NavBar(
     settingsViewModel: SettingsViewModel,
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
+    medicalHistoryViewModel: MedicalHistoryViewModel,
+    navController: NavHostController = rememberNavController()
 ) {
     NavHost(
         navController = navController,
@@ -56,6 +60,18 @@ fun NavBar(
             DiseaseDetailScreen(
                 diseaseId = diseaseId,
                 viewModel = diseaseViewModel,
+                onBackClicked = { navController.popBackStack() },
+                onNavigateToHistory = {
+                    navController.navigate("medical_history") {
+                        popUpTo("diseases")
+                    }
+                }
+            )
+        }
+
+        composable("medical_history") {
+            MedicalHistoryScreen(
+                viewModel = medicalHistoryViewModel,
                 onBackClicked = { navController.popBackStack() }
             )
         }

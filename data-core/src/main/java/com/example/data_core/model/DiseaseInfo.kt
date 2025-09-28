@@ -5,11 +5,13 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "disease",
+@Entity(
+    tableName = "disease_info_table",
     indices = [Index(value = ["name"], unique = true)]
 )
 data class DiseaseInfo(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "disease_info_id")val id: Long = 0,
 
     //Nombres corregidos y campos añadidos
     @ColumnInfo(name = "name") val name: String,

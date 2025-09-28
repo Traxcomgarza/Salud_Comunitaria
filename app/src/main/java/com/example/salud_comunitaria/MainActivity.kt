@@ -29,6 +29,8 @@ import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.feature_auth.viewmodel.UserViewModelFactory
 import com.example.feature_profile.viewmodel.SettingsViewModel
 import com.example.feature_profile.viewmodel.SettingsViewModelFactory
+import com.example.feature_medical_history.viewmodel.MedicalHistoryViewModel
+import com.example.feature_medical_history.viewmodel.MedicalHistoryViewModelFactory
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModelFactory
 import com.example.feature_suggestion.viewmodel.SuggestionViewModel
@@ -47,13 +49,14 @@ class MainActivity : ComponentActivity() {
             AppDatabase::class.java,
             "AppDatabase"
 
-        ) .fallbackToDestructiveMigration(true).build()
+        ).fallbackToDestructiveMigration().build()
+
         //Firebase
-        val  firebaseDiseaseService= FirebaseDiseaseService()
+        val firebaseDiseaseService= FirebaseDiseaseService()
         val firebaseUserService = FirebaseUserService()
         val firebaseSuggestionService = FirebaseSuggestionService()
         //Repository
-        val diseaseRepository = DiseaseRepository(database.diseaseDao(),firebaseDiseaseService)
+        val diseaseRepository = DiseaseRepository(database.diseaseDao(),database.userDao(), firebaseDiseaseService)
         val userRepository = UserRepository(database.userDao(),firebaseUserService)
         val suggestionRepository = SuggestionRepository(database.suggestionDao(), firebaseSuggestionService)
         val settingsRepository = SettingsRepository(applicationContext)
@@ -69,6 +72,11 @@ class MainActivity : ComponentActivity() {
         val userViewModel = ViewModelProvider(this, userViewModelFactory)[UserViewModel::class.java]
         val suggestionViewModel = ViewModelProvider(this, suggestionViewModelFactory)[SuggestionViewModel::class.java]
         val settingsViewModel = ViewModelProvider(this, settingsViewModelFactory)[SettingsViewModel::class.java]
+        val medicalHistoryViewModelFactory = MedicalHistoryViewModelFactory(userRepository)
+        //ViewModel
+        val diseaseViewModel = ViewModelProvider(this, diseaseViewModelFactory)[DiseaseViewModel::class.java]
+        val userViewModel = ViewModelProvider(this, userViewModelFactory)[UserViewModel::class.java]
+        val medicalHistoryViewModel = ViewModelProvider(this, medicalHistoryViewModelFactory)[MedicalHistoryViewModel::class.java]
 
         //Sync
         diseaseViewModel.syncFromFirebase()

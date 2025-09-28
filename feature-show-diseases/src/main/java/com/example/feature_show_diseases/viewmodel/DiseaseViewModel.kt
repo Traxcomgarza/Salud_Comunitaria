@@ -61,7 +61,6 @@ class DiseaseViewModel(private val repository: DiseaseRepository) : ViewModel() 
         return diseases.value.find { it.id == id }
     }
 
-    // Modificada para ser suspend y devolver Boolean
     suspend fun addDiseaseToHistory(userId: Long, diseaseId: Long): Boolean {
         return repository.addDiseaseToUserHistory(userId, diseaseId)
     }

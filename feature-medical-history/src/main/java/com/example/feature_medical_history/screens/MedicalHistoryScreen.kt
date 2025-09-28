@@ -24,7 +24,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.isEmpty
 import androidx.compose.ui.unit.dp
 import com.example.data_core.model.DiseaseInfo
 import com.example.feature_medical_history.viewmodel.MedicalHistoryViewModel
@@ -80,24 +79,20 @@ fun MedicalHistoryScreen(
         }
     }
 }
-    @Composable
-    fun DiseaseHistoryCard(disease: DiseaseInfo) {
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+
+@Composable
+fun DiseaseHistoryCard(disease: DiseaseInfo) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(
-                    text = disease.name,
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    text = disease.description,
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 3
-                )
-            }
+            Text(
+                text = disease.name,
+                style = MaterialTheme.typography.titleMedium
+            )
         }
     }
+}

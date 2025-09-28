@@ -72,4 +72,17 @@ dependencies {
 
     //ui-resources
     implementation(project(":ui-resources"))
+
+    //data-core
+    implementation(project(":data-core"))
+    debugImplementation(libs.androidx.ui.tooling)
+
+
+    //feature-auth
+    implementation(project(":feature-auth"))
+
+
+    //  Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
 }

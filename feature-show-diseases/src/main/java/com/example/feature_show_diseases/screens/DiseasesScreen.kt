@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
 
 @Composable
@@ -35,25 +34,16 @@ fun DiseasesScreen(
     onKnowMoreClicked: (Long) -> Unit
 ) {
     val diseases by viewModel.diseases.collectAsState()
-    val outlineColor = Color(0xFF9D9D9D)
-    val buttonTextColor = Color(0xFF38558D)
 
-    LazyColumn(modifier = Modifier.padding(16.dp)) {
-        items(diseases) { disease ->
-            androidx.compose.material3.Card(
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Column(modifier = Modifier.fillMaxSize()) {
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(75.dp),
-            color = Color(0xFF38558D)
+            color = MaterialTheme.colorScheme.primary
         ) {}
 
         Column(modifier = Modifier.padding(16.dp)) {
-
-            // Fila para el título y el botón
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -67,18 +57,16 @@ fun DiseasesScreen(
                 )
 
                 OutlinedButton(
-                    onClick = {
-                        viewModel.toggleAlphabeticalSort()
-                    },
-                    border = BorderStroke(1.dp, outlineColor),
+                    onClick = { viewModel.toggleAlphabeticalSort() },
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = buttonTextColor
+                        contentColor = MaterialTheme.colorScheme.primary
                     )
                 ) {
                     Text("Ordenar de A-Z")
                 }
             }
-            // Lista de enfermedades
+
             LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
                 items(diseases) { disease ->
                     Card(
@@ -87,11 +75,10 @@ fun DiseasesScreen(
                             .padding(vertical = 4.dp)
                             .clickable { onKnowMoreClicked(disease.id) },
                         shape = RoundedCornerShape(4.dp),
-                        border = BorderStroke(1.dp, outlineColor),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
                         colors = CardDefaults.cardColors(
-                            containerColor = Color.Transparent
+                            containerColor = MaterialTheme.colorScheme.surface
                         )
-
                     ) {
                         Row(
                             modifier = Modifier

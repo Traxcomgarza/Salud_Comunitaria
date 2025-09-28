@@ -32,7 +32,7 @@ class SuggestionRepository(
         try {
             firebaseService.uploadSuggestion(suggestionId)
         } catch (_: Exception){
-            // Ignora la excepción
+
         }
     }
 
@@ -41,7 +41,7 @@ class SuggestionRepository(
         try {
             firebaseService.uploadSuggestion(suggestion)
         } catch (_: Exception){
-            // Ignora la excepción
+
         }
     }
 
@@ -50,7 +50,7 @@ class SuggestionRepository(
         try {
             firebaseService.deleteSuggestion(suggestion)
         } catch (_: Exception){
-            // Ignora la excepción
+
         }
     }
 

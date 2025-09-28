@@ -60,13 +60,25 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
 
 
-    //data-core
-    implementation(project(":data-core"))
+
 
     //ui-resources
     implementation(project(":ui-resources"))
 
+    //data-core
+    implementation(project(":data-core"))
+    debugImplementation(libs.androidx.ui.tooling)
+
+
+    //feature-auth
+    implementation(project(":feature-auth"))
+
+    //feature medical history
+    implementation(project(":feature-medical-history"))
 
 
 
+    //  Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
 }

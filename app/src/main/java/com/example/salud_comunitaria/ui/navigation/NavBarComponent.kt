@@ -30,6 +30,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,7 +63,7 @@ fun NavBarComponent(
         Modifier
             .fillMaxWidth()
             .height(72.dp)
-            .background(Color(0xFFF8F7FF))
+            .background(MaterialTheme.colorScheme.surface)
     ) {
         Row(
             modifier = Modifier
@@ -75,24 +76,23 @@ fun NavBarComponent(
                 Icon(
                     imageVector = Icons.Filled.Home,
                     contentDescription = "diseases",
-                    tint = Color(0xFF8C8CB1)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            IconButton(onClick = {navController.navigate("suggestion") }) {
+            IconButton(onClick = { navController.navigate("suggestion") }) {
                 Icon(
                     imageVector = Icons.Filled.AutoAwesome,
                     contentDescription = "suggestion",
-                    tint = Color(0xFF3D4CFF)
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
-
 
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFF3D4CFF))
+                    .background(MaterialTheme.colorScheme.primary)
                     .zIndex(2f)
             ) {
                 IconButton(
@@ -102,23 +102,23 @@ fun NavBarComponent(
                     Icon(
                         imageVector = Icons.Filled.Apps,
                         contentDescription = if (expanded) "Cerrar opciones" else "Agregar",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }
 
-            IconButton(onClick = { navController.navigate("admin")  }) {
+            IconButton(onClick = { navController.navigate("admin") }) {
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "adminDiseases",
-                    tint = Color(0xFF8C8CB1)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             IconButton(onClick = { navController.navigate("profile") }) {
                 Icon(
                     imageVector = Icons.Filled.Person,
                     contentDescription = "profile",
-                    tint = Color(0xFF8C8CB1)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -136,6 +136,10 @@ fun NavBarComponent(
                 Card(
                     shape = RoundedCornerShape(40.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    ),
                     modifier = Modifier
                         .width(340.dp)
                         .padding(8.dp)
@@ -204,7 +208,15 @@ fun NavBarComponent(
                         ) {
                             Text("Agregar Enfermedad")
                         }
-
+                        Button(
+                            onClick = {
+                                expanded = false
+                                navController.navigate("medical_history")
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Historial Medico")
+                        }
                     }
                 }
             }

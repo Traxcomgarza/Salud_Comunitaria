@@ -44,34 +44,35 @@ import androidx.compose.ui.Alignment
 // import androidx.compose.ui.geometry.isEmpty
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
+import com.example.feature_auth.viewmodel.UserViewModel
+import com.example.feature_medical_history.viewmodel.MedicalHistoryViewModel
 // import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
-@Composable // Eliminado @OptIn(ExperimentalMaterial3Api::class) si no hay otras APIs experimentales
+@Composable
 fun DiseaseDetailScreen(
     diseaseId: Long,
     viewModel: DiseaseViewModel,
+    medicalHistoryViewModel: MedicalHistoryViewModel,
     onBackClicked: () -> Unit,
     onNavigateToHistory: () -> Unit
 ) {
-
     val diseasesState by viewModel.diseases.collectAsState()
     val disease = diseasesState.find { it.id == diseaseId }
+
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-
 
     Scaffold(
         topBar = {
             Surface(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 color = Color(0xFF38558D)
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .windowInsetsPadding(WindowInsets.statusBars) // Para edge-to-edge
+                        .windowInsetsPadding(WindowInsets.statusBars)
                         .height(75.dp)
                         .padding(horizontal = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -100,9 +101,8 @@ fun DiseaseDetailScreen(
             if (disease != null) {
                 FloatingActionButton(
                     onClick = {
-                        // Toda la lógica debe estar dentro del scope.launch
                         scope.launch {
-                            val success = viewModel.addDiseaseToHistory(userId = 40, diseaseId = disease.id)
+                            val success = medicalHistoryViewModel.addToHistory(disease.id)
                             val message = if (success) {
                                 "Enfermedad guardada en el Historial"
                             } else {
@@ -112,9 +112,7 @@ fun DiseaseDetailScreen(
                                 message = message,
                                 duration = SnackbarDuration.Short
                             )
-                            if (success) {
-                                onNavigateToHistory()
-                            }
+                            if (success) onNavigateToHistory()
                         }
                     }
                 ) {

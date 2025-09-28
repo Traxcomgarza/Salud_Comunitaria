@@ -29,8 +29,8 @@ import androidx.room.Index
 )
 data class UserDiseaseCrossRef(
     @ColumnInfo(name = "user_id_fk")
-    val userId: Long, // Guarda el User.id
+    val userId: Long,
 
     @ColumnInfo(name = "disease_id_fk")
-    val diseaseInfoId: Long // Guarda el DiseaseInfo.id (propiedad)
+    val diseaseInfoId: Long
 )

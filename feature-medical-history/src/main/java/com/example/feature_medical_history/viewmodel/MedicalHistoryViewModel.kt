@@ -3,35 +3,39 @@ package com.example.feature_medical_history.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_core.model.DiseaseInfo
+import com.example.data_core.model.User
+import com.example.data_core.repository.MedicalHistoryRepository
 import com.example.data_core.repository.UserRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
+import com.example.feature_auth.viewmodel.UserViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.map
 
-class MedicalHistoryViewModel(private val userRepository: UserRepository) :
-    ViewModel() {
+@OptIn(ExperimentalCoroutinesApi::class)
+class MedicalHistoryViewModel(
+    private val repository: MedicalHistoryRepository,
+    private val userViewModel: UserViewModel
+) : ViewModel() {
 
-    private val userId = 40L // <<--- VOLVEMOS AL ID HARCODEADO
+    private val uidFlow = userViewModel.currentUser.map { it?.uid }
 
     val medicalHistory: StateFlow<List<DiseaseInfo>> =
-        userRepository.getUserMedicalHistory(userId) // Usa el userId fijo
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = emptyList()
-            )
-}
+        uidFlow.flatMapLatest { uid ->
+            if (uid == null) emptyFlow()
+            else repository.getHistory(uid)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
-class MedicalHistoryViewModelFactory(
-    private val userRepository: UserRepository
-    // El userId ya no se pasa aquí
-) : androidx.lifecycle.ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MedicalHistoryViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            // Ya no se pasa userId al constructor del ViewModel
-            return MedicalHistoryViewModel(userRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
+    suspend fun addToHistory(diseaseId: Long): Boolean {
+        val uid = userViewModel.currentUser.value?.uid ?: return false
+        return repository.add(uid, diseaseId)
     }
 }

@@ -37,24 +37,24 @@ fun SettingsScreen(
                 .padding(innerPadding)
                 .fillMaxSize()
         ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            item {
-                ListItem(
-                    headlineContent = { Text("Modo oscuro") },
-                    supportingContent = { Text("Activa el tema oscuro. Si esta apagado, se usa el tema claro.") },
-                    trailingContent = {
-                        Switch(
-                            checked = mode == ThemeMode.DARK,
-                            onCheckedChange = viewModel::setDarkEnabled
-                        )
-                    }
-                )
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                item {
+                    ListItem(
+                        headlineContent = { Text("Modo oscuro") },
+                        supportingContent = { Text("Activa el tema oscuro. Si esta apagado, se usa el tema claro.") },
+                        trailingContent = {
+                            Switch(
+                                checked = mode == ThemeMode.DARK,
+                                onCheckedChange = viewModel::setDarkEnabled
+                            )
+                        }
+                    )
+                }
             }
-        }
         }
     }
 }

@@ -31,26 +31,21 @@ import com.example.feature_medical_history.viewmodel.MedicalHistoryViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MedicalHistoryScreen(
-    viewModel: MedicalHistoryViewModel,
-    onBackClicked: () -> Unit
+    viewModel: MedicalHistoryViewModel, onBackClicked: () -> Unit
 ) {
     val medicalHistory by viewModel.medicalHistory.collectAsState()
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Historial de Enfermedades") },
-                navigationIcon = {
-                    IconButton(onClick = onBackClicked) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Volver"
-                        )
-                    }
+            TopAppBar(title = { Text("Historial de Enfermedades") }, navigationIcon = {
+                IconButton(onClick = onBackClicked) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Volver"
+                    )
                 }
-            )
-        }
-    ) { paddingValues ->
+            })
+        }) { paddingValues ->
         if (medicalHistory.isEmpty()) {
             Column(
                 modifier = Modifier
@@ -60,8 +55,7 @@ fun MedicalHistoryScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Historial medico vacio.",
-                    style = MaterialTheme.typography.bodyLarge
+                    text = "Historial medico vacio.", style = MaterialTheme.typography.bodyLarge
                 )
             }
         } else {
@@ -90,8 +84,7 @@ fun DiseaseHistoryCard(disease: DiseaseInfo) {
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = disease.name,
-                style = MaterialTheme.typography.titleMedium
+                text = disease.name, style = MaterialTheme.typography.titleMedium
             )
         }
     }

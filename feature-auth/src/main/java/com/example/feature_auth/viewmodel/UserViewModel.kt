@@ -2,7 +2,6 @@ package com.example.feature_auth.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data_core.dao.UserDao
 import com.example.data_core.model.User
 import com.example.data_core.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -12,7 +11,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 
 sealed class AuthState {
@@ -21,9 +19,10 @@ sealed class AuthState {
     data class Success(val user: FirebaseUser) : AuthState()
     data class Error(val message: String) : AuthState()
 }
+
 class UserViewModel(
     private val repository: UserRepository
-): ViewModel(){
+) : ViewModel() {
     private val _users = MutableStateFlow<List<User>>(emptyList())
     val users: StateFlow<List<User>> = _users.asStateFlow()
 
@@ -85,7 +84,7 @@ class UserViewModel(
         if (!alreadyExist) {
             viewModelScope.launch { repository.insertUser(user) }
             return true
-        }else{
+        } else {
             return false
         }
     }
@@ -101,12 +100,10 @@ class UserViewModel(
     fun getUserById(id: Long): User? {
         return users.value.find { it.id == id }
     }
-    fun syncFromFirebase(){
+
+    fun syncFromFirebase() {
         viewModelScope.launch { repository.syncFromFirebase() }
     }
-
-
-
 
 
 }

@@ -17,10 +17,12 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,20 +30,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.data_core.model.User
-import com.example.feature_auth.component.isEmail
 import com.example.feature_auth.viewmodel.AuthState
 import com.example.feature_auth.viewmodel.UserViewModel
 import com.example.ui_resources.theme.Inter
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.runtime.collectAsState
-
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -64,10 +59,12 @@ fun SignUpScreen(
                 navController.navigate("login") { popUpTo("signup") { inclusive = true } }
                 userViewModel.resetAuthState()
             }
+
             is AuthState.Error -> {
                 snackbarHostState.showSnackbar("Error: ${state.message}")
                 userViewModel.resetAuthState()
             }
+
             else -> Unit
         }
     }

@@ -42,7 +42,6 @@ android {
     }
 
 
-
 }
 
 dependencies {
@@ -66,14 +65,12 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
 
 
-
     //data-core
     implementation(project(":data-core"))
     debugImplementation(libs.androidx.ui.tooling)
 
     //ui-resources
     implementation(project(":ui-resources"))
-
 
 
 }

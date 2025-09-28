@@ -1,6 +1,5 @@
 package com.example.salud_comunitaria.screen
 
-import android.window.SplashScreen
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
@@ -23,8 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import kotlinx.coroutines.delay
 import com.example.ui_resources.R
+import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(

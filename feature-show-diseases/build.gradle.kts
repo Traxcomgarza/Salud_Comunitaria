@@ -1,5 +1,3 @@
-
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -60,8 +58,6 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
 
 
-
-
     //ui-resources
     implementation(project(":ui-resources"))
 
@@ -75,7 +71,6 @@ dependencies {
 
     //feature medical history
     implementation(project(":feature-medical-history"))
-
 
 
     //  Firebase

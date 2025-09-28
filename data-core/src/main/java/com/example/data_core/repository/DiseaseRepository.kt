@@ -70,7 +70,10 @@ class DiseaseRepository(
         }
     }
 
-    suspend fun addDiseaseToUserHistory(userId: Long, diseaseId: Long): Boolean { // Devuelve Boolean
+    suspend fun addDiseaseToUserHistory(
+        userId: Long,
+        diseaseId: Long
+    ): Boolean { // Devuelve Boolean
         return try { // Retorna el resultado del bloque try-catch
             val relation = UserDiseaseCrossRef(userId = userId, diseaseInfoId = diseaseId)
             userDao.addUserDiseaseLink(relation)
@@ -80,7 +83,11 @@ class DiseaseRepository(
             )
             true // exito
         } catch (e: Exception) {
-            Log.e("DiseaseRepository", "Error al agregar enfermedad al historial: ${e.message}", e) // Loguea el mensaje del error
+            Log.e(
+                "DiseaseRepository",
+                "Error al agregar enfermedad al historial: ${e.message}",
+                e
+            ) // Loguea el mensaje del error
             false // Fallo
         }
     }

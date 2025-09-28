@@ -47,7 +47,6 @@ android {
     }
 
 
-
 }
 
 dependencies {
@@ -81,7 +80,6 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
 
 
-
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
@@ -107,8 +105,7 @@ dependencies {
     implementation(project(":feature-suggestion"))
 
 
-
 }
-apply(plugin= "com.google.gms.google-services")
+apply(plugin = "com.google.gms.google-services")
 
 

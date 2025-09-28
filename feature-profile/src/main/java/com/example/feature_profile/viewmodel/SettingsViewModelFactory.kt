@@ -3,9 +3,8 @@ package com.example.feature_profile.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.data_core.repository.SettingsRepository
-import com.example.feature_auth.viewmodel.UserViewModel
 
-class SettingsViewModelFactory (
+class SettingsViewModelFactory(
     private val repository: SettingsRepository
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")

@@ -22,7 +22,7 @@ import com.example.data_core.model.UserHistoryEntry
     version = 7,
     exportSchema = false
 )
-abstract class AppDatabase: RoomDatabase(){
+abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun diseaseDao(): DiseaseDao
     abstract fun suggestionDao(): SuggestionDao

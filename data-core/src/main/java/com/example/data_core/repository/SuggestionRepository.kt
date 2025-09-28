@@ -10,14 +10,21 @@ import kotlinx.coroutines.flow.first
 class SuggestionRepository(
     private val suggestionDao: SuggestionDao,
     private val firebaseService: FirebaseSuggestionService
-){
+) {
     suspend fun refreshSuggestions() {
         try {
             val remoteSuggestions = firebaseService.getAllSuggestions()
-            Log.d("DEBUG_DATA", "Repository: Se recibieron ${remoteSuggestions.size} sugerencias desde el servicio.")
+            Log.d(
+                "DEBUG_DATA",
+                "Repository: Se recibieron ${remoteSuggestions.size} sugerencias desde el servicio."
+            )
             suggestionDao.insertAll(remoteSuggestions)
         } catch (e: Exception) {
-            Log.e("SuggestionRepository", "Fallo al sincronizar las sugerencias desde el servidor", e)
+            Log.e(
+                "SuggestionRepository",
+                "Fallo al sincronizar las sugerencias desde el servidor",
+                e
+            )
         }
     }
 
@@ -25,13 +32,13 @@ class SuggestionRepository(
 
     fun getSuggestionById(id: Long): Flow<Suggestion?> = suggestionDao.getSuggestionById(id)
 
-    suspend fun insertSuggestion(suggestion: Suggestion){
+    suspend fun insertSuggestion(suggestion: Suggestion) {
         // Insert in Room to get the id
         val generatedId = suggestionDao.insertSuggestion(suggestion)
         val suggestionId = suggestion.copy(id = generatedId)
         try {
             firebaseService.uploadSuggestion(suggestionId)
-        } catch (_: Exception){
+        } catch (_: Exception) {
 
         }
     }
@@ -40,7 +47,7 @@ class SuggestionRepository(
         suggestionDao.updateSuggestion(suggestion)
         try {
             firebaseService.uploadSuggestion(suggestion)
-        } catch (_: Exception){
+        } catch (_: Exception) {
 
         }
     }
@@ -49,21 +56,22 @@ class SuggestionRepository(
         suggestionDao.deleteSuggestion(suggestion)
         try {
             firebaseService.deleteSuggestion(suggestion)
-        } catch (_: Exception){
+        } catch (_: Exception) {
 
         }
     }
 
-    suspend fun syncFromFirebase(){
+    suspend fun syncFromFirebase() {
         try {
             val remoteSuggestions = firebaseService.getAllSuggestions()
             val localSuggestions = suggestionDao.getAllSuggestions().first()
 
             remoteSuggestions.forEach { remote ->
-                if(localSuggestions.none { it.id == remote.id }) {
+                if (localSuggestions.none { it.id == remote.id }) {
                     suggestionDao.insertSuggestion(remote)
                 }
             }
-        } catch (_: Exception) {}
+        } catch (_: Exception) {
+        }
     }
 }

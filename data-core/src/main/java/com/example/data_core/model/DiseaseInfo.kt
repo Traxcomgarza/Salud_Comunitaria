@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
 )
 data class DiseaseInfo(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "disease_info_id")val id: Long = 0,
+    @ColumnInfo(name = "disease_info_id") val id: Long = 0,
 
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "description") val description: String,

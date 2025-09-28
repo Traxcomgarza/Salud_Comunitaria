@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 fun AdminSuggestionScreen(
     viewModel: SuggestionViewModel,
     onBackClicked: () -> Unit
-){
+) {
     val snackbarHostState = remember { SnackbarHostState() }
     var snackbarMessage by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()

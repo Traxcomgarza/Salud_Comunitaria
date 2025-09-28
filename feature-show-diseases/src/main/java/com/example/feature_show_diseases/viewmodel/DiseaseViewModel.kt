@@ -20,27 +20,28 @@ class DiseaseViewModel(private val repository: DiseaseRepository) : ViewModel() 
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val diseases: StateFlow<List<DiseaseInfo>> = _isSortedAlphabetically
-            .flatMapLatest { isSorted ->
-                // The DAO query is already sorted alphabetically, so we just use it.
-                repository.getAllDiseases().map { diseaseList ->
-                    if (isSorted) {
-                        diseaseList
-                    } else {
-                        diseaseList.shuffled()
-                    }
+        .flatMapLatest { isSorted ->
+            // The DAO query is already sorted alphabetically, so we just use it.
+            repository.getAllDiseases().map { diseaseList ->
+                if (isSorted) {
+                    diseaseList
+                } else {
+                    diseaseList.shuffled()
                 }
             }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = emptyList()
-            )
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     init {
         viewModelScope.launch {
             repository.refreshDiseases()
         }
     }
+
     fun toggleAlphabeticalSort() {
         _isSortedAlphabetically.value = !_isSortedAlphabetically.value
     }
@@ -65,7 +66,7 @@ class DiseaseViewModel(private val repository: DiseaseRepository) : ViewModel() 
         return repository.addDiseaseToUserHistory(userId, diseaseId)
     }
 
-    fun syncFromFirebase(){
+    fun syncFromFirebase() {
         viewModelScope.launch { repository.syncFromFirebase() }
     }
 }

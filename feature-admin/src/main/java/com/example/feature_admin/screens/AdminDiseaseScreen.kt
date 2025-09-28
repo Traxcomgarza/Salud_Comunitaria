@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -29,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.data_core.model.DiseaseInfo
 import com.example.feature_show_diseases.viewmodel.DiseaseViewModel
-import com.example.ui_resources.R
 import kotlinx.coroutines.launch
 
 
@@ -38,7 +36,7 @@ import kotlinx.coroutines.launch
 fun AddDiseaseScreen(
     viewModel: DiseaseViewModel,
     onBackClicked: () -> Unit
-){
+) {
     val snackbarHostState = remember { SnackbarHostState() }
     var snackbarMessage by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()

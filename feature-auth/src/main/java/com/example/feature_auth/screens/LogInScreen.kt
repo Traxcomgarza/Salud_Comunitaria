@@ -47,7 +47,7 @@ fun LoginScreen(
     userViewModel: UserViewModel,
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
-)  {
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -80,16 +80,22 @@ fun LoginScreen(
     ) { innerPadding ->
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize().padding(innerPadding)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
             Card(
-                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(
-                    modifier = Modifier.padding(24.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(24.dp)
+                        .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
